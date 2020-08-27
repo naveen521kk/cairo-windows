@@ -18,7 +18,7 @@ jobs:
         shell: msys2 {0}
         run: |
            mkdir build
-           cp build-cairo-windows.sh build\build-cairo-windows.sh
+           cp "./build-cairo-windows.sh" "build/build-cairo-windows.sh"
            cd build
            unset TMP
            unset TEMP
