@@ -1,0 +1,23 @@
+name: Build
+
+on: [push]
+
+jobs:
+  build_cairo:
+    name: Build cairo for Windows
+    runs-on: windows-latest
+    steps:
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: git mingw-w64-x86_64-toolchain make tar
+      - name: Build x64 Build
+        shell: msys2 {0}
+        run: |
+           cd cairocompiled
+           unset TMP
+           unset TEMP
+           export PATH="/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/Common7/IDE:/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/Common7/Tools:$PATH"
+           ./build-cairo-windows.sh
+           #C:\msys64\usr\bin\bash -lc './build-cairo-windows.sh'
