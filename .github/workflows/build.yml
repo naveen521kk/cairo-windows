@@ -7,6 +7,9 @@ jobs:
     name: Build cairo for Windows
     runs-on: windows-latest
     steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+        
       - uses: msys2/setup-msys2@v2
         with:
           msystem: MINGW64
