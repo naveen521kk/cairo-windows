@@ -12,6 +12,8 @@ jobs:
           msystem: MINGW64
           update: true
           install: git mingw-w64-x86_64-toolchain make tar
+      - name: Install VS2017
+        run: choco install visualstudio2017community
       - name: Build x64 Build
         shell: msys2 {0}
         run: |
@@ -19,6 +21,6 @@ jobs:
            cd build
            unset TMP
            unset TEMP
-           export PATH="/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/Common7/IDE:/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/Common7/Tools:$PATH"
+           export PATH="/c/Program Files (x86)/Microsoft Visual Studio/2017/community/Common7/IDE:/c/Program Files (x86)/Microsoft Visual Studio/2019/community/Common7/Tools:$PATH"
            ./build-cairo-windows.sh
            #C:\msys64\usr\bin\bash -lc './build-cairo-windows.sh'
