@@ -19,6 +19,7 @@ jobs:
         run: choco install visualstudio2017community
       - name: Build x64 Build
         shell: msys2 {0}
+        continue-on-error: true
         run: |
            unset TMP
            unset TEMP
