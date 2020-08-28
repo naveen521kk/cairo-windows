@@ -13,6 +13,7 @@ jobs:
       - name: Build x64 Build
         continue-on-error: true
         run: |
+           dir 
            $env:PATH="C:\msys64\usr\bin;C:\msys64\bin;$($env:PATH)"
            dir "$($env:VS140COMNTOOLS)"
            & "$($env:VS140COMNTOOLS)\vsvars32.bat"
@@ -25,18 +26,6 @@ jobs:
            bash -lc "pacman --noconfirm -S tar make"
            $env:CHERE_INVOKING = 'yes'  # Preserve the current working directory
            $env:MSYSTEM = 'MINGW64'  # Start a 64 bit Mingw environment
-           curl http://www.zlib.net/zlib-1.2.3.tar.gz -o zlib.tgz
-           curl ftp://ftp.simplesystems.org/pub/libpng/png/src/libpng-1.2.40.tar.gz -o libpng.tgz
-           curl http://www.cairographics.org/releases/pixman-0.16.2.tar.gz -o pixman.tgz
-           curl http://www.cairographics.org/releases/cairo-1.8.8.tar.gz -o cairo.tgz
-           tar -xzf zlib.tgz
-           tar -xzf libpng.tgz
-           tar -xzf pixman.tgz
-           tar -xzf cairo.tgz
-           move zlib-* zlib
-           move libpng-* libpng
-           move pixman-* pixman
-           move cairo-* cairo
            bash -lc "cmd.exe /C `"%VS140COMNTOOLS%\VsDevCmd.bat`""
            bash -lc "../build-cairo-windows.sh"
            mkdir "$($ROOTDIR)\zlib\projects\visualc71"
