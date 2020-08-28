@@ -14,8 +14,8 @@ jobs:
         continue-on-error: true
         run: |
            $env:PATH="C:\msys64\usr\bin;C:\msys64\bin;$($env:PATH)"
-           dir env:
-           & "$($env:VS140COMNTOOLS)\VsDevCmd.bat"
+           dir "$($env:VS140COMNTOOLS"
+           & "$($env:VS140COMNTOOLS)\vsvars32.bat"
            $ROOTDIR="$($PWD)\BuildCairo"
            mkdir "$ROOTDIR"
            cd "$ROOTDIR"
