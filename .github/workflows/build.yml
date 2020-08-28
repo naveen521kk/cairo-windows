@@ -27,4 +27,5 @@ jobs:
            #./build-cairo-windows.sh
            cmd.exe /C '"C:\Program Files (x86)\Microsoft Visual Studio\2017\community\Common7\tools\VsDevCmd.bat"'
            ./build-cairo-windows.sh
+           echo $PATH
            #C:\msys64\usr\bin\bash -lc './build-cairo-windows.sh'
