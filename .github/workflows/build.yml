@@ -37,5 +37,9 @@ jobs:
            move libpng-* libpng
            move pixman-* pixman
            move cairo-* cairo
+           mkdir "$($ROOTDIR)\zlib\projects\visualc71"
+           cd "$($ROOTDIR)\zlib\projects\visualc71"
+           copy "$($ROOTDIR)\libpng\projects\visualc71\zlib.vcproj ."
+
            #bash -lc "./build-cairo-windows.sh"
            #C:\msys64\usr\bin\bash -lc './build-cairo-windows.sh'
