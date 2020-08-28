@@ -20,9 +20,9 @@ jobs:
            mkdir "$ROOTDIR"
            cd "$ROOTDIR"
            # Update MSYS2
-           bash -lc "pacman -Syuu"  # Core update (in case any core packages are outdated)
-           bash -lc "pacman -Syuu"  # Normal update
-           bash -lc "pacman --no-confirm -S tar make"
+           bash -lc "pacman --noconfirm -Syuu"  # Core update (in case any core packages are outdated)
+           bash -lc "pacman --noconfirm -Syuu"  # Normal update
+           bash -lc "pacman --noconfirm -S tar make"
            $env:CHERE_INVOKING = 'yes'  # Preserve the current working directory
            $env:MSYSTEM = 'MINGW64'  # Start a 64 bit Mingw environment
            C:\msys64\usr\bin\bash -lc "./ci-build.sh"
