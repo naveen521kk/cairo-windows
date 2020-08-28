@@ -1,5 +1,4 @@
 #! bash
-
 trap 'previous_command=$this_command; this_command=$BASH_COMMAND' DEBUG
 trap 'echo FAILED COMMAND: $previous_command' EXIT
 
@@ -25,12 +24,12 @@ MSVC_LINK_PATH=`whereis link | sed "s| /usr/bin/link.exe||" | sed "s|.*\(/c.*\)l
 export PATH="$MSVC_LINK_PATH:$PATH"
 
 # Download packages if not already
-wget -nc -q https://www.cairographics.org/snapshots/$CAIRO_VERSION.tar.xz
-wget -nc -q https://www.cairographics.org/releases/$PIXMAN_VERSION.tar.gz
-wget -nc -q https://download.sourceforge.net/libpng/$LIBPNG_VERSION.tar.gz
-wget -nc -q http://www.zlib.net/$ZLIB_VERSION.tar.gz
+wget -nc https://www.cairographics.org/snapshots/$CAIRO_VERSION.tar.xz
+wget -nc https://www.cairographics.org/releases/$PIXMAN_VERSION.tar.gz
+wget -nc https://download.sourceforge.net/libpng/$LIBPNG_VERSION.tar.gz
+wget -nc http://www.zlib.net/$ZLIB_VERSION.tar.gz
 if [ $USE_FREETYPE -ne 0 ]; then
-    wget -nc -q http://download.savannah.gnu.org/releases/freetype/$FREETYPE_VERSION.tar.gz
+    wget -nc http://download.savannah.gnu.org/releases/freetype/$FREETYPE_VERSION.tar.gz
 fi    
 
 # Extract packages if not already
@@ -66,9 +65,9 @@ sed 's#4996</Disable#4996;5045</Disable#' projects/vstudio/zlib.props > zlib.pro
 mv zlib.props.fixed projects/vstudio/zlib.props
 if [ ! -d "projects\vstudio\Backup" ]; then
     # Upgrade solution if not already
-    devenv.com "projects\vstudio\vstudio.sln" /Upgrade
+    devenv.com "projects\vstudio\vstudio.sln" -upgrade
 fi
-devenv.com "projects\vstudio\vstudio.sln" /Build "Release Library|$MSVC_PLATFORM_NAME" /Project libpng
+devenv.com "projects\vstudio\vstudio.sln" -build "Release Library|$MSVC_PLATFORM_NAME" -project libpng
 cd ..
 if [ $MSVC_PLATFORM_NAME = x64 ]; then
     cp "libpng/projects/vstudio/x64/Release Library/libpng16.lib" libpng/libpng.lib
