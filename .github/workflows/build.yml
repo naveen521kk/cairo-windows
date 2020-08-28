@@ -18,11 +18,8 @@ jobs:
       - name: Install VS2017
         run: choco install visualstudio2017community
       - name: Build x64 Build
-        shell: msys2 {0}
         continue-on-error: true
         run: |
-           unset TMP
-           unset TEMP
-           export PATH="/c/Program Files (x86)/Microsoft Visual Studio/2017/community/Common7/IDE:/c/Program Files (x86)/Microsoft Visual Studio/2019/community/Common7/Tools:$PATH"
-           ./build-cairo-windows.sh
+           $env:PATH="C:\msys64\usr\bin;C:\msys64\bin;$($env:PATH)"
+           dir env:
            #C:\msys64\usr\bin\bash -lc './build-cairo-windows.sh'
