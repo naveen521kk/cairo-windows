@@ -25,5 +25,13 @@ jobs:
            bash -lc "pacman --noconfirm -S tar make"
            $env:CHERE_INVOKING = 'yes'  # Preserve the current working directory
            $env:MSYSTEM = 'MINGW64'  # Start a 64 bit Mingw environment
-           bash -lc "./build-cairo-windows.sh"
+           curl http://www.zlib.net/zlib-1.2.3.tar.gz -o zlib.tgz
+           curl ftp://ftp.simplesystems.org/pub/libpng/png/src/libpng-1.2.40.tar.gz -o libpng.tgz
+           curl http://www.cairographics.org/releases/pixman-0.16.2.tar.gz -o pixman.tgz
+           curl http://www.cairographics.org/releases/cairo-1.8.8.tar.gz -o cairo.tgz
+           tar -xzf zlib.tgz
+           tar -xzf libpng.tgz
+           tar -xzf pixman.tgz
+           tar -xzf cairo.tgz
+           #bash -lc "./build-cairo-windows.sh"
            #C:\msys64\usr\bin\bash -lc './build-cairo-windows.sh'
