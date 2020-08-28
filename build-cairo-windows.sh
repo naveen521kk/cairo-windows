@@ -66,9 +66,9 @@ sed 's#4996</Disable#4996;5045</Disable#' projects/vstudio/zlib.props > zlib.pro
 mv zlib.props.fixed projects/vstudio/zlib.props
 if [ ! -d "projects\vstudio\Backup" ]; then
     # Upgrade solution if not already
-    devenv.com "projects\vstudio\vstudio.sln" -upgrade
+    devenv.com "projects\vstudio\vstudio.sln" /Upgrade
 fi
-devenv.com "projects\vstudio\vstudio.sln" -build "Release Library|$MSVC_PLATFORM_NAME" -project libpng
+devenv.com "projects\vstudio\vstudio.sln" /Build "Release Library|$MSVC_PLATFORM_NAME" /Project libpng
 cd ..
 if [ $MSVC_PLATFORM_NAME = x64 ]; then
     cp "libpng/projects/vstudio/x64/Release Library/libpng16.lib" libpng/libpng.lib
