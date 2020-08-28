@@ -15,7 +15,7 @@ jobs:
         run: |
            $env:PATH="C:\msys64\usr\bin;C:\msys64\bin;$($env:PATH)"
            dir env:
-           & "$($env:VS140COMNTOOLS)\vsvars32.bat"
+           & "$($env:VS140COMNTOOLS)\VsDevCmd.bat"
            $ROOTDIR="$($PWD)\BuildCairo"
            mkdir "$ROOTDIR"
            cd "$ROOTDIR"
@@ -37,9 +37,9 @@ jobs:
            move libpng-* libpng
            move pixman-* pixman
            move cairo-* cairo
+           bash -lc "cmd.exe /C `"%VS140COMNTOOLS%\VsDevCmd.bat`""
            mkdir "$($ROOTDIR)\zlib\projects\visualc71"
            cd "$($ROOTDIR)\zlib\projects\visualc71"
            copy "$($ROOTDIR)\libpng\projects\visualc71\zlib.vcproj ."
-
            #bash -lc "./build-cairo-windows.sh"
            #C:\msys64\usr\bin\bash -lc './build-cairo-windows.sh'
