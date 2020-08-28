@@ -33,5 +33,9 @@ jobs:
            tar -xzf libpng.tgz
            tar -xzf pixman.tgz
            tar -xzf cairo.tgz
+           move zlib-* zlib
+           move libpng-* libpng
+           move pixman-* pixman
+           move cairo-* cairo
            #bash -lc "./build-cairo-windows.sh"
            #C:\msys64\usr\bin\bash -lc './build-cairo-windows.sh'
