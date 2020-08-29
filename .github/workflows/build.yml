@@ -17,11 +17,11 @@ jobs:
           install: git mingw-w64-x86_64-toolchain make tar
       - name: Install VS2017
         run: |
-           #choco install visualstudio2017community
-           #echo "$env:PATH"
-           cmd.exe /k '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\tools\VsDevCmd.bat"'
+           choco install visualstudio2017community
            echo "$env:PATH"
-           & "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\tools\VsDevCmd.bat"
+           cmd.exe /k '"C:\Program Files (x86)\Microsoft Visual Studio\2017\community\Common7\tools\VsDevCmd.bat"'
+           echo "$env:PATH"
+           & "C:\Program Files (x86)\Microsoft Visual Studio\2017\community\Common7\tools\VsDevCmd.bat"
            echo "$env:PATH"
       - name: Build x64 Build
         shell: msys2 {0}
@@ -29,10 +29,10 @@ jobs:
         run: |
            unset TMP
            unset TEMP
-           export PATH="/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/Common7/IDE:/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/Common7/Tools:$PATH"
+           export PATH="/c/Program Files (x86)/Microsoft Visual Studio/2017/community/Common7/IDE:/c/Program Files (x86)/Microsoft Visual Studio/2017/community/Common7/Tools:$PATH"
            #./build-cairo-windows.sh
-           cmd.exe /k '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\tools\VsDevCmd.bat"'
+           cmd.exe /k '"C:\Program Files (x86)\Microsoft Visual Studio\2017\community\Common7\tools\VsDevCmd.bat"'
            ./build-cairo-windows.sh
-           ./build-cairo-windows.sh x64
-           echo $PATH
+           #./build-cairo-windows.sh x64
+           #echo $PATH
            #C:\msys64\usr\bin\bash -lc './build-cairo-windows.sh'
