@@ -16,7 +16,13 @@ jobs:
           update: true
           install: git mingw-w64-x86_64-toolchain make tar
       - name: Install VS2017
-        run: choco install visualstudio2017community
+        run: |
+           choco install visualstudio2017community
+           echo "$env:PATH"
+           cmd.exe /C '"C:\Program Files (x86)\Microsoft Visual Studio\2017\community\Common7\tools\VsDevCmd.bat"'
+           echo "$env:PATH"
+           & "C:\Program Files (x86)\Microsoft Visual Studio\2017\community\Common7\tools\VsDevCmd.bat"
+           echo "$env:PATH"
       - name: Build x64 Build
         shell: msys2 {0}
         continue-on-error: true
