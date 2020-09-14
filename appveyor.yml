@@ -3,24 +3,17 @@ max_jobs: 1
 build: off
 test: off
 deploy: off
-image:
-  - Visual Studio 2017
+image: Visual Studio 2017
 
-for:
--
-  matrix:
-    only:
-      - image: Visual Studio 2017
-
-  init:
-    ps: |
-          C:\msys64\usr\bin\bash -lc "pacman -Syuu"  # Core update (in case any core packages are outdated)
-          C:\msys64\usr\bin\bash -lc "pacman -Syuu"  # Normal update
+init:
+ - ps: |
+     C:\msys64\usr\bin\bash -lc "pacman -Syuu"  # Core update (in case any core packages are outdated)
+     C:\msys64\usr\bin\bash -lc "pacman -Syuu"  # Normal update
           
-  build_script:
-    ps: |
-          $env:CHERE_INVOKING = 'yes'  # Preserve the current working directory
-          $env:MSYSTEM = 'MINGW64'  # Start a 64 bit Mingw environment
-          C:\msys64\usr\bin\bash -lc "pacman -S tar make"
-          $env:PATH="C:\msys64\usr\bin\;$env:PATH"
-          bash -lc "./build-cairo-windows.sh"
+build_script:
+ - ps: |
+     $env:CHERE_INVOKING = 'yes'  # Preserve the current working directory
+     $env:MSYSTEM = 'MINGW64'  # Start a 64 bit Mingw environment
+     C:\msys64\usr\bin\bash -lc "pacman -S tar make"
+     $env:PATH="C:\msys64\usr\bin\;$env:PATH"
+     bash -lc "./build-cairo-windows.sh"
