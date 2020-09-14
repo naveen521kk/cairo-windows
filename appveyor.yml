@@ -1,3 +1,6 @@
+build: off
+test: off
+deploy: off
 image:
   - Visual Studio 2017
 
