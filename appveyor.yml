@@ -5,12 +5,14 @@ test: off
 deploy: off
 image: Visual Studio 2017
 
+environment:
+  MSYS2_PATH_TYPE: inherit
+
 init:
  - cmd: |
-     choco install msys2 --params="/InstallDir:%CD:~0,2%\msys64 /NoPath"
-     set PATH=%CD:~0,2%\msys64\usr\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem
-     %CD:~0,2%\msys64\usr\bin\pacman --noconfirm -Syyuu
-     %CD:~0,2%\msys64\usr\bin\pacman --noconfirm -Syuu
+     set PATH=C:\msys64\usr\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem
+     C:\msys64\usr\bin\pacman --noconfirm -Syyuu
+     C:\msys64\usr\bin\pacman --noconfirm -Syuu
           
 build_script:
  - ps: |
