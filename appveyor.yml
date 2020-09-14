@@ -21,7 +21,7 @@ install:
      C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Syuu"
      taskkill /F /IM gpg-agent.exe
      taskkill /F /IM dirmngr.exe
-     
+     C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Syuu"
      C:\msys64\usr\bin\bash -lc "pacman -S --noconfirm tar make"
           
 build_script:
