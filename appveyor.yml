@@ -20,7 +20,7 @@ install:
      C:\msys64\usr\bin\bash -lc "pacman -U --noconfirm --config <(echo) msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz"
      C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Syyuu"
      tasklist
-     taskkill /F /IM msys*
+     taskkill /F /IM gpg-agent.exe
      C:\msys64\usr\bin\pacman --noconfirm -Syuu
           
 build_script:
