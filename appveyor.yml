@@ -6,14 +6,16 @@ deploy: off
 image: Visual Studio 2017
 
 init:
- - ps: |
-     C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Syuu"  # Core update (in case any core packages are outdated)
-     C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Syuu"  # Normal update
+ - cmd: |
+     choco install msys2 --params="/InstallDir:%CD:~0,2%\msys64 /NoUpdate /NoPath"
+     set PATH=%CD:~0,2%\msys64\usr\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem
+     %CD:~0,2%\msys64\usr\bin\pacman --noconfirm -Syyuu
+     %CD:~0,2%\msys64\usr\bin\pacman --noconfirm -Syuu
           
 build_script:
  - ps: |
      $env:CHERE_INVOKING = 'yes'  # Preserve the current working directory
      $env:MSYSTEM = 'MINGW64'  # Start a 64 bit Mingw environment
-     C:\msys64\usr\bin\bash -lc "pacman -S --noconfirm tar make"
-     $env:PATH="C:\msys64\usr\bin\;$env:PATH"
+     bash -lc "pacman -S --noconfirm tar make"
+     $env:PATH="$PWD\msys64\usr\bin;$env:PATH"
      bash -lc "./build-cairo-windows.sh"
