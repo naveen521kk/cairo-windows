@@ -18,10 +18,11 @@ install:
      C:\msys64\usr\bin\bash -lc "curl -O http://repo.msys2.org/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz.sig"
      C:\msys64\usr\bin\bash -lc "pacman-key --verify msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz.sig"
      C:\msys64\usr\bin\bash -lc "pacman -U --noconfirm --config <(echo) msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz"
-     C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Syyuu"
+     C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Syuu"
      taskkill /F /IM gpg-agent.exe
      taskkill /F /IM dirmngr.exe
-     C:\msys64\usr\bin\pacman --noconfirm -Syuu
+     
+     C:\msys64\usr\bin\bash -lc "pacman -S --noconfirm tar make"
           
 build_script:
  - ps: |
