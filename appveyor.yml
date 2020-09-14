@@ -1,0 +1,27 @@
+image:
+  - Visual Studio 2019
+
+for:
+-
+  matrix:
+    only:
+      - image: Visual Studio 2019
+
+  init:
+    ps: |
+          C:\msys64\usr\bin\bash -lc "pacman -Syuu"  # Core update (in case any core packages are outdated)
+          C:\msys64\usr\bin\bash -lc "pacman -Syuu"  # Normal update
+          # Then run your code
+
+          
+  install:
+    ps: |
+          $env:CHERE_INVOKING = 'yes'  # Preserve the current working directory
+          $env:MSYSTEM = 'MINGW64'  # Start a 64 bit Mingw environment
+          C:\msys64\usr\bin\bash -lc "pacman -S tar make"
+          $env:PATH="C:\msys64\usr\bin\;$env:PATH"
+          bash -lc "./build-cairo-windows.sh"
+
+  artifacts:
+    - path: TinyTeX.zip
+      name: TinyTeX
