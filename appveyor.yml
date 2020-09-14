@@ -28,6 +28,8 @@ build_script:
  - ps: |
      $env:CHERE_INVOKING = 'yes'  # Preserve the current working directory
      $env:MSYSTEM = 'MINGW64'  # Start a 64 bit Mingw environment
-     bash -lc "pacman -S --noconfirm tar make"
+     bash -lc "unset TMP"
+     bash -lc "unset TEMP"
+     cmd.exe /k '"C:\Program Files (x86)\Microsoft Visual Studio\2017\community\Common7\tools\VsDevCmd.bat"'
      $env:PATH="$PWD\msys64\usr\bin;$env:PATH"
      bash -lc "./build-cairo-windows.sh"
