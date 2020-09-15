@@ -25,10 +25,10 @@ MSVC_LINK_PATH=`whereis link | sed "s| /usr/bin/link.exe||" | sed "s|.*\(/c.*\)l
 export PATH="$MSVC_LINK_PATH:$PATH"
 
 # Download packages if not already
-wget -nqc https://www.cairographics.org/snapshots/$CAIRO_VERSION.tar.xz
-wget -nqc https://www.cairographics.org/releases/$PIXMAN_VERSION.tar.gz
-wget -nqc https://download.sourceforge.net/libpng/$LIBPNG_VERSION.tar.gz
-wget -nqc http://www.zlib.net/$ZLIB_VERSION.tar.gz
+wget -nc https://www.cairographics.org/snapshots/$CAIRO_VERSION.tar.xz
+wget -nc https://www.cairographics.org/releases/$PIXMAN_VERSION.tar.gz
+wget -nc https://download.sourceforge.net/libpng/$LIBPNG_VERSION.tar.gz
+wget -nc http://www.zlib.net/$ZLIB_VERSION.tar.gz
 if [ $USE_FREETYPE -ne 0 ]; then
     wget -nqc http://download.savannah.gnu.org/releases/freetype/$FREETYPE_VERSION.tar.gz
 fi    
