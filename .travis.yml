@@ -1,6 +1,22 @@
 os: windows
 language: shell
 script:
+  - USE_FREETYPE=1
+  - CAIRO_VERSION=cairo-1.17.2
+  - PIXMAN_VERSION=pixman-0.40.0
+  - LIBPNG_VERSION=libpng-1.6.37
+  - ZLIB_VERSION=zlib-1.2.11
+  - FREETYPE_VERSION=freetype-2.10.2
+  - wget -nc -q https://www.cairographics.org/snapshots/$CAIRO_VERSION.tar.xz
+  - wget -nc -q https://www.cairographics.org/releases/$PIXMAN_VERSION.tar.gz
+  - wget -nc -q https://download.sourceforge.net/libpng/$LIBPNG_VERSION.tar.gz
+  - wget -nc -q http://www.zlib.net/$ZLIB_VERSION.tar.gz
+  - wget -nc -q http://download.savannah.gnu.org/releases/freetype/$FREETYPE_VERSION.tar.gz
+  - tar -xJf $CAIRO_VERSION.tar.xz
+  - tar -xzf $PIXMAN_VERSION.tar.gz
+  - tar -xzf $LIBPNG_VERSION.tar.gz
+  - tar -xzf $ZLIB_VERSION.tar.gz
+  - tar -xzf $FREETYPE_VERSION.tar.gz
   - $msys2 "./build-cairo-windows.sh"
   - ls
   - 7z a cairo.zip "$PWD\output"
