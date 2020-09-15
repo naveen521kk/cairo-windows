@@ -1,5 +1,9 @@
 #! bash
 echo "Starting Build"
+echo $PATH
+export PATH="/c/Program Files (x86)/Microsoft Visual Studio/2017/community/Common7/IDE:/c/Program Files (x86)/Microsoft Visual Studio/2017/community/Common7/Tools:$PATH"
+export PATH="/c/Program Files (x86)/Microsoft Visual Studio/2017/community/Common7/IDE:/c/Program Files (x86)/Microsoft Visual Studio/2017/community/Common7:$PATH"
+
 trap 'previous_command=$this_command; this_command=$BASH_COMMAND' DEBUG
 trap 'echo FAILED COMMAND: $previous_command' EXIT
 
