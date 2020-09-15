@@ -9,7 +9,8 @@ environment:
   MSYS2_PATH_TYPE: inherit
 
 install:
- - bash: |
+ - cmd: |
+        bash
         choco install wget
         choco uninstall -y mingw
         choco upgrade --no-progress -y msys2
