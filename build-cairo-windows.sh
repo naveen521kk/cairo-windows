@@ -30,7 +30,7 @@ wget -nc https://www.cairographics.org/releases/$PIXMAN_VERSION.tar.gz
 wget -nc https://download.sourceforge.net/libpng/$LIBPNG_VERSION.tar.gz
 wget -nc http://www.zlib.net/$ZLIB_VERSION.tar.gz
 if [ $USE_FREETYPE -ne 0 ]; then
-    wget -nqc http://download.savannah.gnu.org/releases/freetype/$FREETYPE_VERSION.tar.gz
+    wget -nc http://download.savannah.gnu.org/releases/freetype/$FREETYPE_VERSION.tar.gz
 fi    
 
 # Extract packages if not already
