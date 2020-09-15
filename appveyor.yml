@@ -10,7 +10,6 @@ environment:
 
 install:
  - cmd: |
-        bash
         choco install wget
         choco uninstall -y mingw
         choco upgrade --no-progress -y msys2
