@@ -17,6 +17,11 @@ script:
   - tar -xzf $LIBPNG_VERSION.tar.gz
   - tar -xzf $ZLIB_VERSION.tar.gz
   - tar -xzf $FREETYPE_VERSION.tar.gz
+  - mv $CAIRO_VERSION cairo
+  - mv $PIXMAN_VERSION pixman
+  - mv $LIBPNG_VERSION libpng
+  - mv $ZLIB_VERSION zlib
+  - mv $FREETYPE_VERSION freetype
   - $msys2 "./build-cairo-windows.sh"
   - ls
   - 7z a cairo.zip "$PWD\output"
