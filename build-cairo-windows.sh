@@ -1,5 +1,5 @@
 #! bash
-set -e
+echo "Starting Build"
 trap 'previous_command=$this_command; this_command=$BASH_COMMAND' DEBUG
 trap 'echo FAILED COMMAND: $previous_command' EXIT
 
