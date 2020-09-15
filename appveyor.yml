@@ -23,13 +23,29 @@ install:
      C:\msys64\usr\bin\bash -lc "pacman -S --noconfirm tar make"
           
 build_script:
+ - bash: |
+        choco uninstall -y mingw
+        choco upgrade --no-progress -y msys2
+        export msys2='cmd //C RefreshEnv.cmd '
+        export msys2+='& set MSYS=winsymlinks:nativestrict '
+        export msys2+='& C:\\tools\\msys64\\msys2_shell.cmd -defterm -no-start'
+        export mingw64="$msys2 -mingw64 -full-path -here -c "\"\$@"\" --"
+        export msys2+=" -msys2 -c "\"\$@"\" --"
+        $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-toolchain
+        ## Install more MSYS2 packages from https://packages.msys2.org/base here
+        taskkill //IM gpg-agent.exe //F  # https://travis-ci.community/t/4967
+        export PATH=/C/tools/msys64/mingw64/bin:$PATH
+        export MAKE=mingw32-make  # so that Autotools can find it
+        ./build-cairo-windows.sh
  - ps: |
      $env:CHERE_INVOKING = 'yes'  # Preserve the current working directory
      $env:MSYSTEM = 'MINGW64'  # Start a 64 bit Mingw environment
      bash -lc "unset TMP"
      bash -lc "unset TEMP"
      echo "$env:VS120COMNTOOLS"
-     Start-Process -FilePath "$env:VS120COMNTOOLSVsDevCmd.bat"; echo $env:PATH; 
-     cmd.exe /C '"C:\msys64\msys2_shell.cmd" -defterm -no-start -use-full-path'
-     ./build-cairo-windows.sh
+     # Start-Process -FilePath "$($env:VS120COMNTOOLS)VsDevCmd.bat"; echo $env:PATH; 
+     # cmd.exe /C '"C:\msys64\msys2_shell.cmd" -defterm -no-start -use-full-path'
+     cmd /C RefreshEnv.cmd
+     set MSYS=winsymlinks:nativestrict
+     bash -lc "./build-cairo-windows.sh"
 
