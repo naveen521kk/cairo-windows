@@ -30,6 +30,6 @@ build_script:
      bash -lc "unset TMP"
      bash -lc "unset TEMP"
      echo "$env:VS120COMNTOOLS"
-     & "$env:VS120COMNTOOLSVsDevCmd.bat" & echo $env:PATH & C:\msys64\msys2_shell.cmd -defterm -no-start -use-full-path
+     & "$env:VS120COMNTOOLSVsDevCmd.bat"; echo $env:PATH; "C:\msys64\msys2_shell.cmd" -defterm -no-start -use-full-path
      bash -lc "./build-cairo-windows.sh"
 
