@@ -9,21 +9,8 @@ environment:
   MSYS2_PATH_TYPE: inherit
 
 install:
- - cmd: |
-     C:\msys64\usr\bin\bash -lc "rm -r /etc/pacman.d/gnupg/"
-     C:\msys64\usr\bin\bash -lc "pacman-key --init"
-     C:\msys64\usr\bin\bash -lc "pacman-key --populate msys2"
-     C:\msys64\usr\bin\bash -lc "curl -O http://repo.msys2.org/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz"
-     C:\msys64\usr\bin\bash -lc "curl -O http://repo.msys2.org/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz.sig"
-     C:\msys64\usr\bin\bash -lc "pacman-key --verify msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz.sig"
-     C:\msys64\usr\bin\bash -lc "pacman -U --noconfirm --config <(echo) msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz"
-     C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Syuu"
-     taskkill /F /IM gpg-agent.exe
-     taskkill /F /IM dirmngr.exe
-     C:\msys64\usr\bin\bash -lc "pacman -S --noconfirm tar make"
-          
-build_script:
  - bash: |
+        choco install wget
         choco uninstall -y mingw
         choco upgrade --no-progress -y msys2
         export msys2='cmd //C RefreshEnv.cmd '
@@ -36,9 +23,10 @@ build_script:
         taskkill //IM gpg-agent.exe //F  # https://travis-ci.community/t/4967
         export PATH=/C/tools/msys64/mingw64/bin:$PATH
         export MAKE=mingw32-make  # so that Autotools can find it
-        choco install wget
         pacman -S --noconfirm tar make
         ./build-cairo-windows.sh
+          
+build_script:
  - ps: |
      $env:CHERE_INVOKING = 'yes'  # Preserve the current working directory
      $env:MSYSTEM = 'MINGW64'  # Start a 64 bit Mingw environment
