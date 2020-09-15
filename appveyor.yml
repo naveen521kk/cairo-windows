@@ -10,7 +10,6 @@ environment:
 
 install:
  - cmd: |
-     set PATH=C:\msys64\usr\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem
      C:\msys64\usr\bin\bash -lc "rm -r /etc/pacman.d/gnupg/"
      C:\msys64\usr\bin\bash -lc "pacman-key --init"
      C:\msys64\usr\bin\bash -lc "pacman-key --populate msys2"
@@ -30,6 +29,7 @@ build_script:
      bash -lc "unset TMP"
      bash -lc "unset TEMP"
      echo "$env:VS120COMNTOOLS"
-     & "$env:VS120COMNTOOLSVsDevCmd.bat"; echo $env:PATH; & "C:\msys64\msys2_shell.cmd" -defterm -no-start -use-full-path
-     bash -lc "./build-cairo-windows.sh"
+     & "$env:VS120COMNTOOLSVsDevCmd.bat"; echo $env:PATH; 
+     cmd.exe /C '"C:\msys64\msys2_shell.cmd" -defterm -no-start -use-full-path'
+     ./build-cairo-windows.sh
 
