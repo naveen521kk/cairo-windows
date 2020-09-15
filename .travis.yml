@@ -1,6 +1,7 @@
 os: windows
 language: shell
 script:
+  - printenv
   - USE_FREETYPE=1
   - CAIRO_VERSION=cairo-1.17.2
   - PIXMAN_VERSION=pixman-0.40.0
@@ -22,7 +23,7 @@ script:
   - mv $LIBPNG_VERSION libpng
   - mv $ZLIB_VERSION zlib
   - mv $FREETYPE_VERSION freetype
-  - call "${VS120COMNTOOLS}VsDevCmd.bat"
+  - cmd.exe /C "call 'C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat'"
   - export PATH="/c/Program Files (x86)/Microsoft Visual Studio/2017/community/Common7/IDE:/c/Program Files (x86)/Microsoft Visual Studio/2017/community/Common7/Tools:$PATH"
   - $msys2 "./build-cairo-windows.sh"
   - ls
