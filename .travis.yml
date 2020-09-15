@@ -2,6 +2,9 @@ os: windows
 language: shell
 script:
   - $msys2 "./build-cairo-windows.sh"
+  - ls
+  - 7z a cairo.zip "$PWD\output"
+  
   
 before_install:
 - |-
@@ -36,3 +39,9 @@ cache:
     directories:
     - $HOME/AppData/Local/Temp/chocolatey
     - /C/tools/msys64
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file: "cairo.zip"
+  skip_cleanup: true
+  draft: true
