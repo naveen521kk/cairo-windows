@@ -22,6 +22,7 @@ script:
   - mv $LIBPNG_VERSION libpng
   - mv $ZLIB_VERSION zlib
   - mv $FREETYPE_VERSION freetype
+  - cmd.exe /k '"C:\Program Files (x86)\Microsoft Visual Studio\2017\community\Common7\tools\VsDevCmd.bat"'
   - export PATH="/c/Program Files (x86)/Microsoft Visual Studio/2017/community/Common7/IDE:/c/Program Files (x86)/Microsoft Visual Studio/2017/community/Common7/Tools:$PATH"
   - $msys2 "./build-cairo-windows.sh"
   - ls
