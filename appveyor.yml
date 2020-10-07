@@ -32,7 +32,7 @@ build_script:
      $MSVC_PLATFORM_NAME='x64'
      wget "https://www.cairographics.org/snapshots/$CAIRO_VERSION.tar.xz" -o "$CAIRO_VERSION.tar.xz"
      wget "https://www.cairographics.org/releases/$PIXMAN_VERSION.tar.gz" -o "$PIXMAN_VERSION.tar.gz"
-     wget "https://download.sourceforge.net/libpng/$LIBPNG_VERSION.tar.gz" -o "$LIBPNG_VERSION.tar.gz"
+     wget "https://download.sourceforge.net/libpng/$LIBPNG_VERSION.tar.gz" -o "$LIBPNG_VERSION.tar.gz" -UserAgent "wget"
      wget "http://www.zlib.net/$ZLIB_VERSION.tar.gz" -o "$ZLIB_VERSION.tar.gz"
      wget "http://download.savannah.gnu.org/releases/freetype/$FREETYPE_VERSION.tar.gz" -o "$FREETYPE_VERSION.tar.gz"
      7z x "$CAIRO_VERSION.tar.xz"
