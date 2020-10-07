@@ -40,12 +40,13 @@ bash -c "mv zlib.props.fixed projects/vstudio/zlib.props"
 devenv.com "projects\vstudio\vstudio.sln" -upgrade
 devenv.com "projects\vstudio\vstudio.sln" -build "Release Library|$MSVC_PLATFORM_NAME" -project libpng
 cd ..
-bash -c 'cp "libpng/projects/vstudio/Release Library/libpng16.lib" "libpng/libpng.lib"'
-bash -c 'cp "libpng/projects/vstudio/Release Library/zlib.lib" "zlib/zlib.lib"'
+Copy-Item -Path "libpng/projects/vstudio/Release Library/libpng16.lib" -Destination "libpng/libpng.lib"
+Copy-Item -Path "libpng/projects/vstudio/Release Library/zlib.lib" -Destination "zlib/zlib.lib"
 cd pixman
 bash -c "sed s/-MD/-MT/ Makefile.win32.common > Makefile.win32.common.fixed"
 bash -c "mv Makefile.win32.common.fixed Makefile.win32.common"
-C:\msys64\usr\bin\bash -lc 'make pixman -B -f Makefile.win32 "CFG=release"'
+make pixman -B -f Makefile.win32 "CFG=release"
+cd ..
 cd freetype
 devenv.com "builds/windows/vc2010/freetype.sln" -upgrade
 devenv.com "builds/windows/vc2010/freetype.sln" -build "Release Static|$MSVC_PLATFORM_NAME"
