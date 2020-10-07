@@ -22,7 +22,7 @@ build_script:
      # Start-Process -FilePath "$($env:VS120COMNTOOLS)VsDevCmd.bat"; echo $env:PATH; 
      # cmd.exe /C '"C:\msys64\msys2_shell.cmd" -defterm -no-start -use-full-path'
      cmd /C RefreshEnv.cmd
-     cmd.exe /C "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat -host_arch=amd64 -arch=x64 && echo %PATH%"
+     cmd.exe /C '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat -host_arch=amd64 -arch=x64 && echo %PATH%"'
      $USE_FREETYPE=1
      $CAIRO_VERSION="cairo-1.17.2"
      $PIXMAN_VERSION="pixman-0.40.0"
@@ -35,16 +35,22 @@ build_script:
      wget -nc -q https://download.sourceforge.net/libpng/$LIBPNG_VERSION.tar.gz
      wget -nc -q http://www.zlib.net/$ZLIB_VERSION.tar.gz
      wget -nc -q http://download.savannah.gnu.org/releases/freetype/$FREETYPE_VERSION.tar.gz
-     tar -xJf $CAIRO_VERSION.tar.xz
-     move $CAIRO_VERSION cairo
-     tar -xzf $PIXMAN_VERSION.tar.gz
-     move $PIXMAN_VERSION pixman
-     tar -xzf $LIBPNG_VERSION.tar.gz
-     move $LIBPNG_VERSION libpng
-     tar -xzf $ZLIB_VERSION.tar.gz
-     move $ZLIB_VERSION zlib
-     tar -xzf $FREETYPE_VERSION.tar.gz
+     7z x $CAIRO_VERSION.tar.xz
+     7z x $CAIRO_VERSION.tar
+     7z x 
+     7z x $PIXMAN_VERSION.tar.gz
+     7z x $PIXMAN_VERSION.tar
+     7z x $LIBPNG_VERSION.tar.gz
+     7z x $LIBPNG_VERSION.tar
+     7z x $ZLIB_VERSION.tar.gz
+     7z x $ZLIB_VERSION.tar
+     7z x $FREETYPE_VERSION.tar.gz
+     7z x $FREETYPE_VERSION.tar
      move $FREETYPE_VERSION freetype
+     move $CAIRO_VERSION cairo
+     move $ZLIB_VERSION zlib
+     move $LIBPNG_VERSION libpng
+     move $PIXMAN_VERSION pixman
      cd libpng
      bash -c "sed 's#4996</Disable#4996;5045</Disable#' projects/vstudio/zlib.props > zlib.props.fixed"
      move zlib.props.fixed projects/vstudio/zlib.props
