@@ -57,12 +57,12 @@ build_script:
      devenv.com "projects\vstudio\vstudio.sln" -upgrade
      devenv.com "projects\vstudio\vstudio.sln" -build "Release Library|Win32" -project libpng
      cd ..
-     bash -c 'cp "libpng/projects/vstudio/x64/Release Library/libpng16.lib" libpng/libpng.lib'
-     bash -c 'cp "libpng/projects/vstudio/x64/Release Library/zlib.lib" zlib/zlib.lib'
+     bash -c 'cp "libpng/projects/vstudio/x64/Release Library/libpng16.lib" "libpng/libpng.lib"'
+     bash -c 'cp "libpng/projects/vstudio/x64/Release Library/zlib.lib" "zlib/zlib.lib"'
      cd pixman
      bash -c "sed s/-MD/-MT/ Makefile.win32.common > Makefile.win32.common.fixed"
      bash -c "mv Makefile.win32.common.fixed Makefile.win32.common"
-     make pixman -B -f Makefile.win32 "CFG=release"
+     C:\msys64\usr\bin\bash -lc 'make pixman -B -f Makefile.win32 "CFG=release"'
      cd freetype
      devenv.com "builds/windows/vc2010/freetype.sln" -upgrade
      devenv.com "builds/windows/vc2010/freetype.sln" -build "Release Static|Win32"
