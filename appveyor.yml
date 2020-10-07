@@ -22,7 +22,7 @@ build_script:
      # Start-Process -FilePath "$($env:VS120COMNTOOLS)VsDevCmd.bat"; echo $env:PATH; 
      # cmd.exe /C '"C:\msys64\msys2_shell.cmd" -defterm -no-start -use-full-path'
      cmd /C RefreshEnv.cmd
-     cmd.exe /C '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat" -host_arch=amd64 -arch=x64 && echo %PATH%'
+     cmd.exe /C '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat" -host_arch=amd64 -arch=x64 && echo %PATH% && devenv.com'
      $USE_FREETYPE=1
      $CAIRO_VERSION="cairo-1.17.2"
      $PIXMAN_VERSION="pixman-0.40.0"
@@ -35,10 +35,10 @@ build_script:
      wget "https://download.sourceforge.net/libpng/$LIBPNG_VERSION.tar.gz" -o "$LIBPNG_VERSION.tar.gz"
      wget "http://www.zlib.net/$ZLIB_VERSION.tar.gz" -o "$ZLIB_VERSION.tar.gz"
      wget "http://download.savannah.gnu.org/releases/freetype/$FREETYPE_VERSION.tar.gz" -o "$FREETYPE_VERSION.tar.gz"
-     7z x $CAIRO_VERSION.tar.xz
-     7z x $CAIRO_VERSION.tar
-     7z x $PIXMAN_VERSION.tar.gz
-     7z x $PIXMAN_VERSION.tar
+     7z x "$CAIRO_VERSION.tar.xz"
+     7z x "$CAIRO_VERSION.tar"
+     7z x "$PIXMAN_VERSION.tar.gz"
+     7z x "$PIXMAN_VERSION.tar"
      7z x $LIBPNG_VERSION.tar.gz
      7z x $LIBPNG_VERSION.tar
      7z x $ZLIB_VERSION.tar.gz
