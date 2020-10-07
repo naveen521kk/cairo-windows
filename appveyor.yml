@@ -19,7 +19,7 @@ build_script:
      set MSYSTEM = 'MINGW64'  # Start a 64 bit Mingw environment
      bash -lc "unset TMP"
      bash -lc "unset TEMP"
-     powershell build-cairo.ps1
+     powershell -File "%APPVEYOR_BUILD_FOLDER%\build-cairo.ps1"
      Get-Command "vswhere"
      Get-Command "msbuild"
 
