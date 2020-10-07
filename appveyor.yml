@@ -16,7 +16,6 @@ install:
         C:\msys64\usr\bin\bash -lc "pacman-key --populate msys2"
         C:\msys64\usr\bin\bash -lc "curl -O https://msys2.nyc3.digitaloceanspaces.com/mingw/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz"
         C:\msys64\usr\bin\bash -lc "curl -O https://msys2.nyc3.digitaloceanspaces.com/mingw/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz.sig"
-        C:\msys64\usr\bin\bash -lc "pacman-key --verify msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz.sig"
         C:\msys64\usr\bin\bash -lc "pacman -U --noconfirm --config <(echo) msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz"
         C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Syyuu"
         taskkill /F /IM gpg-agent.exe
