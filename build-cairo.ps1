@@ -1,12 +1,12 @@
-$ErrorActionPreference = "Stop"
+$ErrorActionPreference = "continue" #for-now
 Write-Output "Setting enviroment variable using vswhere"
 # from https://github.com/microsoft/vswhere/wiki/Start-Developer-Command-Prompt#using-powershell
 $installationPath = vswhere.exe -prerelease -latest -property installationPath
 if ($installationPath -and (test-path "$installationPath\Common7\Tools\vsdevcmd.bat")) {
-  & "${env:COMSPEC}" /s /c "`"$installationPath\Common7\Tools\vsdevcmd.bat`" -no_logo && set" | foreach-object {
-    $name, $value = $_ -split '=', 2
-    set-content env:\"$name" $value
-  }
+    & "${env:COMSPEC}" /s /c "`"$installationPath\Common7\Tools\vsdevcmd.bat`" -no_logo && set" | foreach-object {
+        $name, $value = $_ -split '=', 2
+        set-content env:\"$name" $value
+    }
 }
 $CAIRO_VERSION = "cairo-1.17.2"
 $PIXMAN_VERSION = "pixman-0.40.0"
@@ -52,12 +52,27 @@ devenv.com "builds/windows/vc2010/freetype.sln" -upgrade
 devenv.com "builds/windows/vc2010/freetype.sln" -build "Release Static|$MSVC_PLATFORM_NAME"
 bash -c 'cp "`ls -1d "objs/$MSVC_PLATFORM_NAME/Release Static/freetype.lib"`" .'
 cd ..
-cd cairo
-bash -c "sed 's/-MD/-MT/;s/zdll.lib/zlib.lib/' build/Makefile.win32.common > Makefile.win32.common.fixed"
-bash -c 'mv Makefile.win32.common.fixed build/Makefile.win32.common'
-bash -c "sed '/^CAIRO_LIBS =/s/$/ `$(top_builddir)\/..\/freetype\/freetype.lib/;/^DEFAULT_CFLAGS =/s/$/ -I`$(top_srcdir)\/..\/freetype\/include/' build/Makefile.win32.common > Makefile.win32.common.fixed"
-bash -c "mv Makefile.win32.common.fixed build/Makefile.win32.common"
-bash -c 'sed "s/CAIRO_HAS_FT_FONT=./CAIRO_HAS_FT_FONT=$USE_FREETYPE/" build/Makefile.win32.features > Makefile.win32.features.fixed'
-bash -c 'mv Makefile.win32.features.fixed build/Makefile.win32.features'
-make -B -f Makefile.win32 cairo "CFG=release"
-     
+bash -lc "./build-cairo.sh"
+
+# Package headers with DLL
+$OUTPUT_FOLDER = output
+mkdir -p $OUTPUT_FOLDER/include
+foreach ($file in @("cairo/cairo-version.h",
+        "cairo/src/cairo-features.h",
+        "cairo/src/cairo.h",
+        "cairo/src/cairo-deprecated.h",
+        "cairo/src/cairo-win32.h",
+        "cairo/src/cairo-script.h",
+        "cairo/src/cairo-ps.h",
+        "cairo/src/cairo-pdf.h",
+        "cairo/src/cairo-svg.h")) {
+    Copy-Item $file $OUTPUT_FOLDER/include
+}
+Copy-Item cairo/src/cairo-ft.h $OUTPUT_FOLDER/include
+mkdir -p $OUTPUT_FOLDER/lib/x86
+Copy-Item cairo/src/release/cairo.lib $OUTPUT_FOLDER/lib/$OUTPUT_PLATFORM_NAME
+Copy-Item cairo/src/release/cairo.dll $OUTPUT_FOLDER/lib/$OUTPUT_PLATFORM_NAME
+Copy-Item cairo/COPYING* $OUTPUT_FOLDER
+
+7z a cairo.zip output/*
+echo 'Success!'
