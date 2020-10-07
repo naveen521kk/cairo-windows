@@ -41,6 +41,7 @@ bash -c "mv zlib.props.fixed projects/vstudio/zlib.props"
 devenv.com "projects\vstudio\vstudio.sln" -upgrade
 devenv.com "projects\vstudio\vstudio.sln" -build "Release Library|$MSVC_PLATFORM_NAME" -project libpng
 cd ..
+tree /F 
 bash -c 'cp "libpng/projects/vstudio/x64/Release Library/libpng16.lib" "libpng/libpng.lib"'
 bash -c 'cp "libpng/projects/vstudio/x64/Release Library/zlib.lib" "zlib/zlib.lib"'
 cd pixman
