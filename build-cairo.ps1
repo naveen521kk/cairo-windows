@@ -1,3 +1,4 @@
+Write-Output "Setting enviroment variable using vswhere"
 # from https://github.com/microsoft/vswhere/wiki/Start-Developer-Command-Prompt#using-powershell
 $installationPath = vswhere.exe -prerelease -latest -property installationPath
 if ($installationPath -and (test-path "$installationPath\Common7\Tools\vsdevcmd.bat")) {
