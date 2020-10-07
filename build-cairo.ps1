@@ -1,3 +1,4 @@
+$ErrorActionPreference = "Stop"
 Write-Output "Setting enviroment variable using vswhere"
 # from https://github.com/microsoft/vswhere/wiki/Start-Developer-Command-Prompt#using-powershell
 $installationPath = vswhere.exe -prerelease -latest -property installationPath
@@ -7,8 +8,6 @@ if ($installationPath -and (test-path "$installationPath\Common7\Tools\vsdevcmd.
     set-content env:\"$name" $value
   }
 }
-$env:PATH = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE;" + $env:PATH
-$USE_FREETYPE = 1
 $CAIRO_VERSION = "cairo-1.17.2"
 $PIXMAN_VERSION = "pixman-0.40.0"
 $LIBPNG_VERSION = "libpng-1.6.37"
@@ -42,8 +41,8 @@ devenv.com "projects\vstudio\vstudio.sln" -upgrade
 devenv.com "projects\vstudio\vstudio.sln" -build "Release Library|$MSVC_PLATFORM_NAME" -project libpng
 cd ..
 tree /F 
-bash -c 'cp "libpng/projects/vstudio/x64/Release Library/libpng16.lib" "libpng/libpng.lib"'
-bash -c 'cp "libpng/projects/vstudio/x64/Release Library/zlib.lib" "zlib/zlib.lib"'
+bash -c 'cp "libpng/projects/vstudio/Release Library/libpng16.lib" "libpng/libpng.lib"'
+bash -c 'cp "libpng/projects/vstudio/Release Library/zlib.lib" "zlib/zlib.lib"'
 cd pixman
 bash -c "sed s/-MD/-MT/ Makefile.win32.common > Makefile.win32.common.fixed"
 bash -c "mv Makefile.win32.common.fixed Makefile.win32.common"
@@ -56,7 +55,7 @@ cd ..
 cd cairo
 bash -c "sed 's/-MD/-MT/;s/zdll.lib/zlib.lib/' build/Makefile.win32.common > Makefile.win32.common.fixed"
 bash -c 'mv Makefile.win32.common.fixed build/Makefile.win32.common'
-bash -c "sed '/^CAIRO_LIBS =/s/$/ $(top_builddir)\/..\/freetype\/freetype.lib/;/^DEFAULT_CFLAGS =/s/$/ -I$(top_srcdir)\/..\/freetype\/include/' build/Makefile.win32.common > Makefile.win32.common.fixed"
+bash -c "sed '/^CAIRO_LIBS =/s/$/ `$(top_builddir)\/..\/freetype\/freetype.lib/;/^DEFAULT_CFLAGS =/s/$/ -I`$(top_srcdir)\/..\/freetype\/include/' build/Makefile.win32.common > Makefile.win32.common.fixed"
 bash -c "mv Makefile.win32.common.fixed build/Makefile.win32.common"
 bash -c 'sed "s/CAIRO_HAS_FT_FONT=./CAIRO_HAS_FT_FONT=$USE_FREETYPE/" build/Makefile.win32.features > Makefile.win32.features.fixed'
 bash -c 'mv Makefile.win32.features.fixed build/Makefile.win32.features'

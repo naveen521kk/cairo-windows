@@ -20,7 +20,7 @@ build_script:
      bash -lc "unset TMP"
      bash -lc "unset TEMP"
      powershell -File "%APPVEYOR_BUILD_FOLDER%\build-cairo.ps1"
-     Get-Command "vswhere"
-     Get-Command "msbuild"
+     where "vswhere"
+     where "msbuild"
 
 
