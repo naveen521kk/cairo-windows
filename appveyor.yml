@@ -68,6 +68,13 @@ build_script:
      devenv.com "builds/windows/vc2010/freetype.sln" -build "Release Static|Win32"
      bash -c 'cp "`ls -1d "objs/$MSVC_PLATFORM_NAME/Release Static/freetype.lib"`" .'
      cd ..
-
+     cd cairo
+     bash -c "sed 's/-MD/-MT/;s/zdll.lib/zlib.lib/' build/Makefile.win32.common > Makefile.win32.common.fixed"
+     bash -c 'mv Makefile.win32.common.fixed build/Makefile.win32.common'
+     bash -c "sed '/^CAIRO_LIBS =/s/$/ $(top_builddir)\/..\/freetype\/freetype.lib/;/^DEFAULT_CFLAGS =/s/$/ -I$(top_srcdir)\/..\/freetype\/include/' build/Makefile.win32.common > Makefile.win32.common.fixed"
+     bash -c "mv Makefile.win32.common.fixed build/Makefile.win32.common"
+     bash -c 'sed "s/CAIRO_HAS_FT_FONT=./CAIRO_HAS_FT_FONT=$USE_FREETYPE/" build/Makefile.win32.features > Makefile.win32.features.fixed'
+     bash -c 'mv Makefile.win32.features.fixed build/Makefile.win32.features'
+     make -B -f Makefile.win32 cairo "CFG=release"
      
 
