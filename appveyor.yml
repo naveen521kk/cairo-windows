@@ -39,17 +39,17 @@ build_script:
      7z x "$CAIRO_VERSION.tar"
      7z x "$PIXMAN_VERSION.tar.gz"
      7z x "$PIXMAN_VERSION.tar"
-     7z x $LIBPNG_VERSION.tar.gz
-     7z x $LIBPNG_VERSION.tar
-     7z x $ZLIB_VERSION.tar.gz
-     7z x $ZLIB_VERSION.tar
-     7z x $FREETYPE_VERSION.tar.gz
-     7z x $FREETYPE_VERSION.tar
-     move $FREETYPE_VERSION freetype
-     move $CAIRO_VERSION cairo
-     move $ZLIB_VERSION zlib
-     move $LIBPNG_VERSION libpng
-     move $PIXMAN_VERSION pixman
+     7z x "$LIBPNG_VERSION.tar.gz"
+     7z x "$LIBPNG_VERSION.tar"
+     7z x "$ZLIB_VERSION.tar.gz"
+     7z x "$ZLIB_VERSION.tar"
+     7z x "$FREETYPE_VERSION.tar.gz"
+     7z x "$FREETYPE_VERSION.tar"
+     move "$FREETYPE_VERSION" freetype
+     move "$CAIRO_VERSION" cairo
+     move "$ZLIB_VERSION" zlib
+     move "$LIBPNG_VERSION" libpng
+     move "$PIXMAN_VERSION" pixman
      cd libpng
      bash -c "sed 's#4996</Disable#4996;5045</Disable#' projects/vstudio/zlib.props > zlib.props.fixed"
      move zlib.props.fixed projects/vstudio/zlib.props
