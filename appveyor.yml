@@ -23,6 +23,7 @@ build_script:
      # cmd.exe /C '"C:\msys64\msys2_shell.cmd" -defterm -no-start -use-full-path'
      cmd /C RefreshEnv.cmd
      & "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat" -host_arch=amd64 -arch=x64
+     $env:PATH = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE;" + $env:PATH
      $USE_FREETYPE=1
      $CAIRO_VERSION="cairo-1.17.2"
      $PIXMAN_VERSION="pixman-0.40.0"
@@ -52,7 +53,7 @@ build_script:
      move "$PIXMAN_VERSION" pixman
      cd libpng
      bash -c "sed 's#4996</Disable#4996;5045</Disable#' projects/vstudio/zlib.props > zlib.props.fixed"
-     move zlib.props.fixed projects/vstudio/zlib.props
+     bash -c "mv zlib.props.fixed projects/vstudio/zlib.props"
      devenv.com "projects\vstudio\vstudio.sln" -upgrade
      devenv.com "projects\vstudio\vstudio.sln" -build "Release Library|$MSVC_PLATFORM_NAME" -project libpng
      cd ..
