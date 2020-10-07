@@ -1,3 +1,11 @@
+# from https://github.com/microsoft/vswhere/wiki/Start-Developer-Command-Prompt#using-powershell
+$installationPath = vswhere.exe -prerelease -latest -property installationPath
+if ($installationPath -and (test-path "$installationPath\Common7\Tools\vsdevcmd.bat")) {
+  & "${env:COMSPEC}" /s /c "`"$installationPath\Common7\Tools\vsdevcmd.bat`" -no_logo && set" | foreach-object {
+    $name, $value = $_ -split '=', 2
+    set-content env:\"$name" $value
+  }
+}
 $env:PATH = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE;" + $env:PATH
 $USE_FREETYPE = 1
 $CAIRO_VERSION = "cairo-1.17.2"
