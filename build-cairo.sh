@@ -1,3 +1,4 @@
+USE_FREETYPE=1
 cd cairo
 sed 's/-MD/-MT/;s/zdll.lib/zlib.lib/' build/Makefile.win32.common > Makefile.win32.common.fixed
 mv Makefile.win32.common.fixed build/Makefile.win32.common
