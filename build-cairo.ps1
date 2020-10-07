@@ -50,8 +50,11 @@ cd ..
 cd freetype
 devenv.com "builds/windows/vc2010/freetype.sln" -upgrade
 devenv.com "builds/windows/vc2010/freetype.sln" -build "Release Static|$MSVC_PLATFORM_NAME"
-bash -c 'cp "`ls -1d "objs/$MSVC_PLATFORM_NAME/Release Static/freetype.lib"`" .'
+tree /A /F
+#cp "``ls -1d "objs/$MSVC_PLATFORM_NAME/Release Static/freetype.lib"``" .
+cp "builds\windows\vc2010\..\..\..\objs\Win32\Release Static\freetype.lib" .
 cd ..
+
 bash -lc "./build-cairo.sh"
 
 # Package headers with DLL
