@@ -22,7 +22,7 @@ build_script:
      # Start-Process -FilePath "$($env:VS120COMNTOOLS)VsDevCmd.bat"; echo $env:PATH; 
      # cmd.exe /C '"C:\msys64\msys2_shell.cmd" -defterm -no-start -use-full-path'
      cmd /C RefreshEnv.cmd
-     cmd.exe /C '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat" -host_arch=amd64 -arch=x64 && echo %PATH% && devenv.com'
+     & "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat" -host_arch=amd64 -arch=x64
      $USE_FREETYPE=1
      $CAIRO_VERSION="cairo-1.17.2"
      $PIXMAN_VERSION="pixman-0.40.0"
