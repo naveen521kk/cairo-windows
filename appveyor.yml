@@ -11,15 +11,8 @@ environment:
 install:
  - cmd: |
         choco install wget
-        C:\msys64\usr\bin\bash -lc "rm -r /etc/pacman.d/gnupg/"
-        C:\msys64\usr\bin\bash -lc "pacman-key --init"
-        C:\msys64\usr\bin\bash -lc "pacman-key --populate msys2"
-        C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Syyuu"
-        taskkill /F /IM gpg-agent.exe
-        taskkill /F /IM dirmngr.exe
-        C:\msys64\usr\bin\pacman --noconfirm -Syuu
-        C:\msys64\usr\bin\pacman --noconfirm -S make tar
-          
+        choco install make
+           
 build_script:
  - ps: |
      $env:CHERE_INVOKING = 'yes'  # Preserve the current working directory
