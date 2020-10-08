@@ -23,12 +23,8 @@ install:
         C:\msys64\usr\bin\pacman --noconfirm -S make tar
            
 build_script:
- - cmd: |
-     set CHERE_INVOKING = 'yes'  # Preserve the current working directory
-     set MSYSTEM = 'MINGW64'  # Start a 64 bit Mingw environment
-     bash -lc "unset TMP"
-     bash -lc "unset TEMP"
-     $env:PATH = "C:\msys64\usr\bin;$env:PATH" 
+ - ps: |
+     $env:PATH = "C:\msys64\usr\bin;" + "$env:PATH"
      powershell -File "%APPVEYOR_BUILD_FOLDER%\build-cairo.ps1"
      where "vswhere"
      where "msbuild"
