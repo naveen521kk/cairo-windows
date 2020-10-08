@@ -53,8 +53,8 @@ devenv.com "builds/windows/vc2010/freetype.sln" -build "Release Static|$MSVC_PLA
 #cp "``ls -1d "objs/$MSVC_PLATFORM_NAME/Release Static/freetype.lib"``" .
 cp "builds\windows\vc2010\..\..\..\objs\$MSVC_PLATFORM_NAME\Release Static\freetype.lib" .
 cd ..
-
-bash -lc "$env:APPVEYOR_BUILD_FOLDER\build-cairo.sh"
+$env:CHERE_INVOKING = 'yes'
+bash -lc "./build-cairo.sh"
 
 # Package headers with DLL
 $OUTPUT_FOLDER = "output"
