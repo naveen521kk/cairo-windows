@@ -26,7 +26,7 @@ build_script:
  - ps: |
      $ErrorActionPreference = "continue"
      $installationPath = vswhere.exe -prerelease -latest -property installationPath
-     cmd.exe /C "`"$installationPath\Common7\Tools\vsdevcmd.bat" /?"
+     cmd.exe /C "`"$installationPath\Common7\Tools\vsdevcmd.bat`" /?"
      $env:PATH = "C:\msys64\usr\bin;" + "$env:PATH"
      powershell -File "$env:APPVEYOR_BUILD_FOLDER\build-cairo.ps1"
 
