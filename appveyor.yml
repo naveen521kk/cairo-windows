@@ -25,11 +25,11 @@ install:
 build_script:
  - ps: |
      $env:PATH = "C:\msys64\usr\bin;" + "$env:PATH"
-     powershell -File "%APPVEYOR_BUILD_FOLDER%\build-cairo.ps1"
-     where "vswhere"
-     where "msbuild"
+     powershell -File "$env:APPVEYOR_BUILD_FOLDER\build-cairo.ps1"
+
 artifacts:
   - path: cairo.zip
     name: cairo
-
+  - path: cairo/*
+    name: cairo1
 
