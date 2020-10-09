@@ -39,6 +39,6 @@ build_script:
 artifacts:
   - path: cairo.zip
     name: cairo
-  - path: cairo/*
+  - path: cairo/**
     name: cairo1
 
