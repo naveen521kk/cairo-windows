@@ -16,7 +16,6 @@ git clone https://gitlab.freedesktop.org/cairo/cairo.git
 cd cairo
 choco install gtk-runtime
 py -3.8 -m pip install --upgrade meson ninja
-mkdir final
 meson build --default-library=static -Dfontconfig=enabled -Dfreetype=enabled -Dglib=enabled -Dzlib=enabled
 ninja -C build
 
