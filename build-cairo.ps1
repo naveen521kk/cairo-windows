@@ -16,8 +16,8 @@ git clone https://gitlab.freedesktop.org/cairo/cairo.git
 cd cairo
 py -3.8 -m pip install --upgrade meson ninja
 mkdir final
-py -3.8 -m meson build --default-library=static -Dfontconfig=enabled -Dfreetype=enabled -Dglib=enabled -Dzlib=enabled final .
-py -3.8 -m ninja -C build
+meson build --default-library=static -Dfontconfig=enabled -Dfreetype=enabled -Dglib=enabled -Dzlib=enabled final .
+ninja -C build
 
 Copy-Item cairo/final $OUTPUT_FOLDER
 7z a cairo.zip output/*
