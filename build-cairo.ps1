@@ -56,25 +56,10 @@ cd ..
 $env:CHERE_INVOKING = 'yes'
 bash -lc "./build-cairo.sh"
 
-# Package headers with DLL
-$OUTPUT_FOLDER = "output"
-mkdir -p $OUTPUT_FOLDER/include
-foreach ($file in @("cairo/cairo-version.h",
-        "cairo/src/cairo-features.h",
-        "cairo/src/cairo.h",
-        "cairo/src/cairo-deprecated.h",
-        "cairo/src/cairo-win32.h",
-        "cairo/src/cairo-script.h",
-        "cairo/src/cairo-ps.h",
-        "cairo/src/cairo-pdf.h",
-        "cairo/src/cairo-svg.h")) {
-    Copy-Item $file $OUTPUT_FOLDER/include
-}
-Copy-Item cairo/src/cairo-ft.h $OUTPUT_FOLDER/include
-mkdir -p $OUTPUT_FOLDER/lib/x86
-Copy-Item cairo/src/release/cairo.lib $OUTPUT_FOLDER/lib/$OUTPUT_PLATFORM_NAME
-Copy-Item cairo/src/release/cairo.dll $OUTPUT_FOLDER/lib/$OUTPUT_PLATFORM_NAME
-Copy-Item cairo/COPYING* $OUTPUT_FOLDER
+pip install --upgrade meson ninja
+cd cairo
+meson build --default-library=static -Dfontconfig=enabled -Dfreetype=enabled -Dglib=enabled -Dzlib=enabled final
 
+Copy-Item cairo/final $OUTPUT_FOLDER
 7z a cairo.zip output/*
 echo 'Success!'
