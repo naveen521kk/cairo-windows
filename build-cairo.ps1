@@ -10,9 +10,9 @@ if ($installationPath -and (test-path "$installationPath\Common7\Tools\vsdevcmd.
 }
 $CAIRO_VERSION = "cairo-1.17.2"
 
-wget "https://gitlab.freedesktop.org/cairo/cairo/-/archive/master/cairo-master.zip" -o "cairo.zip"
-7z x cairo.zip -ocairo
-
+#wget "https://gitlab.freedesktop.org/cairo/cairo/-/archive/master/cairo-master.zip" -o "cairo.zip"
+#7z x cairo.zip -ocairo
+git clone https://gitlab.freedesktop.org/cairo/cairo.git
 cd cairo
 py -3.8 -m pip install --upgrade meson ninja
 py -3.8 -m meson build --default-library=static -Dfontconfig=enabled -Dfreetype=enabled -Dglib=enabled -Dzlib=enabled final
