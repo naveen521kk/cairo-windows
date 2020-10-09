@@ -32,7 +32,7 @@ build_script:
       meson build --default-library=both -Dfontconfig=enabled -Dfreetype=enabled -Dglib=enabled -Dzlib=enabled
       ninja -C build
       Copy-Item cairo/build $OUTPUT_FOLDER
-      7z a cairo.zip output/*
+      7z a cairo.zip build
       echo 'Success!'
 
 
