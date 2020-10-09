@@ -29,10 +29,9 @@ build_script:
       #7z x cairo.zip -ocairo
       cd cairo
       pip install --upgrade meson ninja
-      meson build --default-library=both -Dfontconfig=enabled -Dfreetype=enabled -Dglib=enabled -Dzlib=enabled
+      meson build --default-library=static -Dfontconfig=enabled -Dfreetype=enabled -Dglib=enabled -Dzlib=enabled
       ninja -C build
-      Copy-Item cairo/build $OUTPUT_FOLDER
-      7z a cairo.zip build
+      7z a cairo.zip build\src
       echo 'Success!'
 
 
