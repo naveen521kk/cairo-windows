@@ -11,10 +11,10 @@ environment:
 install:
  - cmd: |
         choco install wget
+        git clone https://gitlab.freedesktop.org/cairo/cairo.git
 build_script:
  - ps: |
-      $ErrorActionPreference = "continue"
-      $ErrorActionPreference = "continue" #for-now
+      $ErrorActionPreference = "continue"      
       Write-Output "Setting enviroment variable using vswhere"
       # from https://github.com/microsoft/vswhere/wiki/Start-Developer-Command-Prompt#using-powershell
       $installationPath = vswhere.exe -prerelease -latest -property installationPath
@@ -27,9 +27,7 @@ build_script:
       $env:PATH="C:\Python38-x64;C:\Python38-x64\Scripts;$env:PATH"
       #wget "https://gitlab.freedesktop.org/cairo/cairo/-/archive/master/cairo-master.zip" -o "cairo.zip"
       #7z x cairo.zip -ocairo
-      bash - c "git clone https://gitlab.freedesktop.org/cairo/cairo.git"
       cd cairo
-      choco install gtk-runtime
       pip install --upgrade meson ninja
       meson build --default-library=both -Dfontconfig=enabled -Dfreetype=enabled -Dglib=enabled -Dzlib=enabled
       ninja -C build
