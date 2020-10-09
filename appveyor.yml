@@ -28,7 +28,7 @@ build_script:
       #wget "https://gitlab.freedesktop.org/cairo/cairo/-/archive/master/cairo-master.zip" -o "cairo.zip"
       #7z x cairo.zip -ocairo
       pip install --upgrade meson ninja
-      meson --default-library=both --prefix=C:\cairo --buildtype release --auto-features=enabled -Dtee=enabled cairo_builddir cairo
+      meson --default-library=both --prefix=C:\cairo --buildtype release -Dfontconfig=enabled -Dfreetype=enabled -Dglib=enabled -Dzlib=enabled -Dtee=enabled cairo_builddir cairo
       meson compile -C cairo_builddir
       meson install -C cairo_builddir
       7z a cairo.zip cairo_builddir
