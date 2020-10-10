@@ -17,7 +17,7 @@ build_script:
       $ErrorActionPreference = "continue"
       mkdir x86
       cd x86
-      move ../cairo cairo
+      copy ../cairo cairo
       Write-Output "Setting enviroment variable using vswhere"
       # from https://github.com/microsoft/vswhere/wiki/Start-Developer-Command-Prompt#using-powershell
       $prevPath= $env:PATH
@@ -29,8 +29,6 @@ build_script:
           }
       }
       $env:PATH="C:\Python38-x64;C:\Python38-x64\Scripts;$env:PATH"
-      #wget "https://gitlab.freedesktop.org/cairo/cairo/-/archive/master/cairo-master.zip" -o "cairo.zip"
-      #7z x cairo.zip -ocairo
       pip install --upgrade meson ninja
       meson --default-library=shared --prefix=C:\cairo\x86 --buildtype release -Dfontconfig=enabled -Dfreetype=enabled -Dglib=enabled -Dzlib=enabled -Dtee=enabled cairo_builddir cairo
       meson compile -C cairo_builddir
@@ -45,7 +43,7 @@ build_script:
               set-content env:\"$name" $value
           }
       }
-      move ../cairo cairo
+      copy ../cairo cairo
       $env:PATH="C:\Python38-x64;C:\Python38-x64\Scripts;$env:PATH"
       #wget "https://gitlab.freedesktop.org/cairo/cairo/-/archive/master/cairo-master.zip" -o "cairo.zip"
       #7z x cairo.zip -ocairo
