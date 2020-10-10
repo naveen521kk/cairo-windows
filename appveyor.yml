@@ -14,9 +14,13 @@ install:
         git clone https://gitlab.freedesktop.org/cairo/cairo.git
 build_script:
  - ps: |
-      $ErrorActionPreference = "continue"      
+      $ErrorActionPreference = "continue"
+      mkdir x86
+      cd x86
+      move ../cairo cairo
       Write-Output "Setting enviroment variable using vswhere"
       # from https://github.com/microsoft/vswhere/wiki/Start-Developer-Command-Prompt#using-powershell
+      $prevPath= $env:PATH
       $installationPath = vswhere.exe -prerelease -latest -property installationPath
       if ($installationPath -and (test-path "$installationPath\Common7\Tools\vsdevcmd.bat")) {
           & "${env:COMSPEC}" /s /c "`"$installationPath\Common7\Tools\vsdevcmd.bat`" -no_logo -host_arch=amd64 -arch=x86 && set" | foreach-object {
@@ -28,10 +32,30 @@ build_script:
       #wget "https://gitlab.freedesktop.org/cairo/cairo/-/archive/master/cairo-master.zip" -o "cairo.zip"
       #7z x cairo.zip -ocairo
       pip install --upgrade meson ninja
-      meson --default-library=shared --prefix=C:\cairo --buildtype release -Dfontconfig=enabled -Dfreetype=enabled -Dglib=enabled -Dzlib=enabled -Dtee=enabled cairo_builddir cairo
+      meson --default-library=shared --prefix=C:\cairo\x86 --buildtype release -Dfontconfig=enabled -Dfreetype=enabled -Dglib=enabled -Dzlib=enabled -Dtee=enabled cairo_builddir cairo
       meson compile -C cairo_builddir
       meson install -C cairo_builddir
-      7z a cairo.zip cairo_builddir
+      cd ../
+      mkdir x64
+      cd x64
+      $installationPath = vswhere.exe -prerelease -latest -property installationPath
+      if ($installationPath -and (test-path "$installationPath\Common7\Tools\vsdevcmd.bat")) {
+          & "${env:COMSPEC}" /s /c "`"$installationPath\Common7\Tools\vsdevcmd.bat`" -no_logo -host_arch=amd64 -arch=amd64 && set" | foreach-object {
+              $name, $value = $_ -split '=', 2
+              set-content env:\"$name" $value
+          }
+      }
+      move ../cairo cairo
+      $env:PATH="C:\Python38-x64;C:\Python38-x64\Scripts;$env:PATH"
+      #wget "https://gitlab.freedesktop.org/cairo/cairo/-/archive/master/cairo-master.zip" -o "cairo.zip"
+      #7z x cairo.zip -ocairo
+      pip install --upgrade meson ninja
+      meson --default-library=shared --prefix=C:\cairo\x64 --buildtype release -Dfontconfig=enabled -Dfreetype=enabled -Dglib=enabled -Dzlib=enabled -Dtee=enabled cairo_builddir cairo
+      meson compile -C cairo_builddir
+      meson install -C cairo_builddir
+      $env:PATH = $prevPath
+      7z a cairo_x86.zip x86\cairo_builddir
+      7z a cairo_x64.zip x64\cairo_builddir
       7z a cairo_release.zip C:\cairo
       echo 'Success!'
 
