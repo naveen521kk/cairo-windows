@@ -1,27 +1,39 @@
-image:
-  - Visual Studio 2019
+version: '{build}'
+max_jobs: 1
+build: off
+test: off
+deploy: off
+image: Visual Studio 2017
 
-for:
--
-  matrix:
-    only:
-      - image: Visual Studio 2019
+environment:
+  MSYS2_PATH_TYPE: inherit
+  CHERE_INVOKING: 1  
+install:
+ - cmd: |
+        choco install wget
+        git clone https://gitlab.freedesktop.org/cairo/cairo.git
+        C:\msys64\usr\bin\bash -lc "pacman --noconfirm -S tar make"
+build_script:
+ - ps: |
+      $ErrorActionPreference = "continue"      
+      Write-Output "Setting enviroment variable using vswhere"
+      # from https://github.com/microsoft/vswhere/wiki/Start-Developer-Command-Prompt#using-powershell
+      $prevPath= $env:PATH
+      $installationPath = vswhere.exe -prerelease -latest -property installationPath
+      if ($installationPath -and (test-path "$installationPath\Common7\Tools\vsdevcmd.bat")) {
+          & "${env:COMSPEC}" /s /c "`"$installationPath\Common7\Tools\vsdevcmd.bat`" -no_logo -host_arch=amd64 -arch=x86 && set" | foreach-object {
+              $name, $value = $_ -split '=', 2
+              set-content env:\"$name" $value
+          }
+      }
+      $env:MSYSTEM = 'MINGW64'
+      $env:PATH="C:\msys64;$env:PATH"
+      C:\msys64\usr\bin\bash -c "unset TMP"
+      C:\msys64\usr\bin\bash -c "unset TEMP"
+      C:\msys64\usr\bin\bash -x "./build-cairo-windows.sh"
+      7z a cairo_x86.zip output
+      echo 'Success!'
+artifacts:
+  - path: cairo_x86.zip
+    name: cairo_x86
 
-  init:
-    ps: |
-          C:\msys64\usr\bin\bash -lc "pacman -Syuu"  # Core update (in case any core packages are outdated)
-          C:\msys64\usr\bin\bash -lc "pacman -Syuu"  # Normal update
-          # Then run your code
-
-          
-  install:
-    ps: |
-          $env:CHERE_INVOKING = 'yes'  # Preserve the current working directory
-          $env:MSYSTEM = 'MINGW64'  # Start a 64 bit Mingw environment
-          C:\msys64\usr\bin\bash -lc "pacman -S tar make"
-          $env:PATH="C:\msys64\usr\bin\;$env:PATH"
-          bash -lc "./build-cairo-windows.sh"
-
-  artifacts:
-    - path: TinyTeX.zip
-      name: TinyTeX
