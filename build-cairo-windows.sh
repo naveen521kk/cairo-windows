@@ -21,9 +21,9 @@ else
 fi
 
 # Make sure the MSVC linker appears first in the path
-MSVC_LINK_PATH=`whereis link | sed "s| /usr/bin/link.exe||" | sed "s|.*\(/c.*\)link.exe.*|\1|"`
-export PATH="$MSVC_LINK_PATH:$PATH"
-
+#MSVC_LINK_PATH=`whereis link | sed "s| /usr/bin/link.exe||" | sed "s|.*\(/c.*\)link.exe.*|\1|"`
+#export PATH="$MSVC_LINK_PATH:$PATH"
+echo $PATH
 # Download packages if not already
 wget -nc https://www.cairographics.org/snapshots/$CAIRO_VERSION.tar.xz
 wget -nc https://www.cairographics.org/releases/$PIXMAN_VERSION.tar.gz
