@@ -11,6 +11,9 @@ environment:
 install:
  - cmd: |
         choco install wget
+        C:\msys64\usr\bin\bash -lc "rm -r /etc/pacman.d/gnupg/"
+        C:\msys64\usr\bin\bash -lc "pacman-key --init"
+        C:\msys64\usr\bin\bash -lc "pacman-key --populate msys2"
         git clone https://gitlab.freedesktop.org/cairo/cairo.git
         C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Syuu
         C:\msys64\usr\bin\bash -lc "pacman --noconfirm -S tar make"
