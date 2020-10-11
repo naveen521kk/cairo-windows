@@ -8,6 +8,7 @@ image: Visual Studio 2017
 environment:
   MSYS2_PATH_TYPE: inherit
   CHERE_INVOKING: 1  
+  MSYSTEM: 'MINGW64'
 install:
  - cmd: |
         choco install wget
@@ -36,7 +37,6 @@ build_script:
               set-content env:\"$name" $value
           }
       }
-      $env:MSYSTEM = 'MINGW64'
       $env:PATH="C:\msys64;$env:PATH"
       C:\msys64\usr\bin\bash -c "unset TMP"
       C:\msys64\usr\bin\bash -c "unset TEMP"
