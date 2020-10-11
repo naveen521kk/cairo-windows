@@ -14,8 +14,14 @@ install:
         C:\msys64\usr\bin\bash -lc "rm -r /etc/pacman.d/gnupg/"
         C:\msys64\usr\bin\bash -lc "pacman-key --init"
         C:\msys64\usr\bin\bash -lc "pacman-key --populate msys2"
-        git clone https://gitlab.freedesktop.org/cairo/cairo.git
-        C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Syuu
+        C:\msys64\usr\bin\bash -lc "curl -O http://repo.msys2.org/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz"
+        C:\msys64\usr\bin\bash -lc "curl -O http://repo.msys2.org/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz.sig"
+        C:\msys64\usr\bin\bash -lc "pacman-key --verify msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz.sig"
+        C:\msys64\usr\bin\bash -lc "pacman -U --noconfirm --config <(echo) msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz"
+        C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Syyuu"
+        taskkill /F /IM gpg-agent.exe
+        taskkill /F /IM dirmngr.exe
+        C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Syuu"
         C:\msys64\usr\bin\bash -lc "pacman --noconfirm -S tar make"
 build_script:
  - ps: |
