@@ -25,10 +25,10 @@ fi
 #export PATH="$MSVC_LINK_PATH:$PATH"
 echo $PATH
 # Download packages if not already
-wget -nc https://www.cairographics.org/snapshots/$CAIRO_VERSION.tar.xz
-wget -nc https://www.cairographics.org/releases/$PIXMAN_VERSION.tar.gz
-wget -nc https://download.sourceforge.net/libpng/$LIBPNG_VERSION.tar.gz
-wget -nc http://www.zlib.net/$ZLIB_VERSION.tar.gz
+wget -ncv https://www.cairographics.org/snapshots/$CAIRO_VERSION.tar.xz
+wget -ncv https://www.cairographics.org/releases/$PIXMAN_VERSION.tar.gz
+wget -ncv https://download.sourceforge.net/libpng/$LIBPNG_VERSION.tar.gz
+wget -ncv http://www.zlib.net/$ZLIB_VERSION.tar.gz
 if [ $USE_FREETYPE -ne 0 ]; then
     wget -nc http://download.savannah.gnu.org/releases/freetype/$FREETYPE_VERSION.tar.gz
 fi    
@@ -36,27 +36,27 @@ fi
 # Extract packages if not already
 if [ ! -d cairo ]; then
     echo "Extracting $CAIRO_VERSION..."
-    tar -xJf $CAIRO_VERSION.tar.xz
+    tar xf $CAIRO_VERSION.tar.xz
     mv $CAIRO_VERSION cairo
 fi
 if [ ! -d pixman ]; then
     echo "Extracting $PIXMAN_VERSION..."
-    tar -xzf $PIXMAN_VERSION.tar.gz
+    tar xzf $PIXMAN_VERSION.tar.gz
     mv $PIXMAN_VERSION pixman
 fi
 if [ ! -d libpng ]; then
     echo "Extracting $LIBPNG_VERSION..."
-    tar -xzf $LIBPNG_VERSION.tar.gz
+    tar xzf $LIBPNG_VERSION.tar.gz
     mv $LIBPNG_VERSION libpng
 fi
 if [ ! -d zlib ]; then
     echo "Extracting $ZLIB_VERSION..."
-    tar -xzf $ZLIB_VERSION.tar.gz
+    tar xzf $ZLIB_VERSION.tar.gz
     mv $ZLIB_VERSION zlib
 fi
 if [ $USE_FREETYPE -ne 0 ] && [ ! -d freetype ]; then
     echo "Extracting $FREETYPE_VERSION..."
-    tar -xzf $FREETYPE_VERSION.tar.gz
+    tar xzf $FREETYPE_VERSION.tar.gz
     mv $FREETYPE_VERSION freetype
 fi
 
