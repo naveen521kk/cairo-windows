@@ -12,6 +12,7 @@ install:
  - cmd: |
         choco install wget
         git clone https://gitlab.freedesktop.org/cairo/cairo.git
+        C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Syuu
         C:\msys64\usr\bin\bash -lc "pacman --noconfirm -S tar make"
 build_script:
  - ps: |
