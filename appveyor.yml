@@ -30,6 +30,7 @@ build_script:
       $env:PATH="C:\msys64;$env:PATH"
       C:\msys64\usr\bin\bash -c "unset TMP"
       C:\msys64\usr\bin\bash -c "unset TEMP"
+      C:\msys64\usr\bin\bash -c "which tar"
       C:\msys64\usr\bin\bash -x "./build-cairo-windows.sh"
       7z a cairo_x86.zip output
       echo 'Success!'
