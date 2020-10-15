@@ -17,7 +17,7 @@ build_script:
       $ErrorActionPreference = "continue"
       mkdir x86
       cd x86
-      Copy-Item -Path "$PWD\..\cairo" -Destination "$PWD\cairo"
+      Copy-Item -Path "$PWD\..\cairo" -Destination "$PWD\cairo" –Recurse
       cd ../
       tree
       cd x86
@@ -46,7 +46,7 @@ build_script:
               set-content env:\"$name" $value
           }
       }
-      Copy-Item -Path "$PWD\..\cairo" -Destination "$PWD\cairo"
+      Copy-Item -Path "$PWD\..\cairo" -Destination "$PWD\cairo" –Recurse
       $env:PATH="C:\Python38-x64;C:\Python38-x64\Scripts;$env:PATH"
       pip install --upgrade meson ninja
       meson --default-library=shared --prefix=C:\cairo\x64 --buildtype release -Dfontconfig=enabled -Dfreetype=enabled -Dglib=enabled -Dzlib=enabled -Dtee=enabled cairo_builddir cairo
