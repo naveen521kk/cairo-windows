@@ -18,6 +18,9 @@ build_script:
       mkdir x86
       cd x86
       Copy-Item -Path "$PWD\..\cairo" -Destination "$PWD\cairo"
+      cd ../
+      tree
+      cd x86
       Write-Output "Setting enviroment variable using vswhere"
       # from https://github.com/microsoft/vswhere/wiki/Start-Developer-Command-Prompt#using-powershell
       $prevPath= $env:PATH
