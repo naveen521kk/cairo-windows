@@ -54,6 +54,7 @@ build_script:
       meson compile -C cairo_builddir
       meson install -C cairo_builddir
       $env:PATH = $prevPath
+      cd ../
       7z a cairo_x86.zip x86\cairo_builddir
       7z a cairo_x64.zip x64\cairo_builddir
       7z a cairo_release.zip C:\cairo
@@ -61,7 +62,7 @@ build_script:
 
 
 artifacts:
-  - path: cairo.zip
+  - path: cairo*.zip
     name: cairo
   - path: cairo_release.zip
     name: cairo1
