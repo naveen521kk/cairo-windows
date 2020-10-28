@@ -1,27 +1,27 @@
-image:
-  - Visual Studio 2019
+version: '{build}'
+max_jobs: 1
+build: off
+test: off
+deploy: off
+image: Visual Studio 2017
 
-for:
--
-  matrix:
-    only:
-      - image: Visual Studio 2019
+environment:
+  MSYS2_PATH_TYPE: inherit
 
-  init:
-    ps: |
-          C:\msys64\usr\bin\bash -lc "pacman -Syuu"  # Core update (in case any core packages are outdated)
-          C:\msys64\usr\bin\bash -lc "pacman -Syuu"  # Normal update
-          # Then run your code
-
-          
-  install:
-    ps: |
-          $env:CHERE_INVOKING = 'yes'  # Preserve the current working directory
-          $env:MSYSTEM = 'MINGW64'  # Start a 64 bit Mingw environment
-          C:\msys64\usr\bin\bash -lc "pacman -S tar make"
-          $env:PATH="C:\msys64\usr\bin\;$env:PATH"
-          bash -lc "./build-cairo-windows.sh"
-
-  artifacts:
-    - path: TinyTeX.zip
-      name: TinyTeX
+install:
+ - cmd: |
+        choco install wget
+        choco install make
+           
+build_script:
+ - cmd: |
+     set CHERE_INVOKING = 'yes'  # Preserve the current working directory
+     set MSYSTEM = 'MINGW64'  # Start a 64 bit Mingw environment
+     bash -lc "unset TMP"
+     bash -lc "unset TEMP"
+     powershell -File "%APPVEYOR_BUILD_FOLDER%\build-cairo.ps1"
+     where "vswhere"
+     where "msbuild"
+artifacts:
+  - path: cairo.zip
+    name: cairo
