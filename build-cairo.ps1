@@ -72,11 +72,12 @@ $NewContent = Get-Content -Path $File |
         if($_ -match '.*cairo\.dll\: .*')
         {
             # Add output additional line
-            '	@echo $(CAIRO_LDFLAGS)'
+			'	@echo $(CAIRO_LDFLAGS)'
 			'	@echo $@'
 			'	@echo $(CAIRO_LIBS)'
 			'	@echo $(PIXMAN_LIBS)'
 			'	@echo $(OBJECTS)'
+			'	@echo $(LD) $(CAIRO_LDFLAGS) -DLL -OUT:$@ $(CAIRO_LIBS) $(PIXMAN_LIBS) $(OBJECTS)'
         }
     }
 
