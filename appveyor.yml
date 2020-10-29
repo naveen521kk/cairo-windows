@@ -11,23 +11,10 @@ environment:
 install:
  - cmd: |
         choco install wget
-        C:\msys64\usr\bin\bash -lc "rm -r /etc/pacman.d/gnupg/"
-        C:\msys64\usr\bin\bash -lc "pacman-key --init"
-        C:\msys64\usr\bin\bash -lc "pacman-key --populate msys2"
-        C:\msys64\usr\bin\bash -lc "curl -O http://repo.msys2.org/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz"
-        C:\msys64\usr\bin\bash -lc "curl -O http://repo.msys2.org/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz.sig"
-        C:\msys64\usr\bin\bash -lc "pacman-key --verify msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz.sig"
-        C:\msys64\usr\bin\bash -lc "pacman -U --noconfirm --config <(echo) msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz"
-        taskkill /F /IM gpg-agent.exe
-        taskkill /F /IM dirmngr.exe
-        C:\msys64\usr\bin\pacman --noconfirm -S make tar
            
 build_script:
  - ps: |
      $ErrorActionPreference = "continue"
-     $installationPath = vswhere.exe -prerelease -latest -property installationPath
-     cmd.exe /C "`"$installationPath\Common7\Tools\vsdevcmd.bat`" /?"
-     $env:PATH = "C:\msys64\usr\bin;" + "$env:PATH"
      powershell -File "$env:APPVEYOR_BUILD_FOLDER\build-cairo.ps1"
 
 artifacts:
