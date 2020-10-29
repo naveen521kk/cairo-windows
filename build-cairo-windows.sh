@@ -87,9 +87,9 @@ sed s/-MD/-MT/ Makefile.win32.common > Makefile.win32.common.fixed
 mv Makefile.win32.common.fixed Makefile.win32.common
 if [ $MSVC_PLATFORM_NAME = x64 ]; then
     # pass -B for switching between x86/x64
-    make pixman -B -f Makefile.win32 "CFG=release" "MMX=off"
+    make pixman -f Makefile.win32 "CFG=release" "MMX=off"
 else
-    make pixman -B -f Makefile.win32 "CFG=release"
+    make pixman -f Makefile.win32 "CFG=release"
 fi
 cd ..
 
@@ -118,7 +118,7 @@ mv Makefile.win32.common.fixed build/Makefile.win32.common
 sed "s/CAIRO_HAS_FT_FONT=./CAIRO_HAS_FT_FONT=$USE_FREETYPE/" build/Makefile.win32.features > Makefile.win32.features.fixed
 mv Makefile.win32.features.fixed build/Makefile.win32.features
 # pass -B for switching between x86/x64
-make -B -f Makefile.win32 cairo "CFG=release"
+make -f Makefile.win32 cairo "CFG=release"
 cd ..
 
 # Package headers with DLL
