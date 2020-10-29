@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+  build:
+    runs-on: windows-2016
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Wget
+        run: |
+          choco install wget
+      - name: Execute Script
+        continue-on-error: true
+        run: |
+          powershell -File "$env:GITHUB_WORKSPACE\build-cairo.ps1"
