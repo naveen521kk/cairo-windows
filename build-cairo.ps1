@@ -42,10 +42,13 @@ devenv.com "projects\vstudio\vstudio.sln" -build "Release Library|$MSVC_PLATFORM
 cd ..
 Copy-Item -Path "libpng/projects/vstudio/Release Library/libpng16.lib" -Destination "libpng/libpng.lib"
 Copy-Item -Path "libpng/projects/vstudio/Release Library/zlib.lib" -Destination "zlib/zlib.lib"
+dir libpng
+dir zlib
 cd pixman
 bash -c "sed s/-MD/-MT/ Makefile.win32.common > Makefile.win32.common.fixed"
 bash -c "mv Makefile.win32.common.fixed Makefile.win32.common"
 make pixman -B -f Makefile.win32 "CFG=release"
+dir pixman/release
 cd ..
 cd freetype
 devenv.com "builds/windows/vc2010/freetype.sln" -upgrade
@@ -53,6 +56,7 @@ devenv.com "builds/windows/vc2010/freetype.sln" -build "Release Static|$MSVC_PLA
 #cp "``ls -1d "objs/$MSVC_PLATFORM_NAME/Release Static/freetype.lib"``" .
 cp "builds\windows\vc2010\..\..\..\objs\$MSVC_PLATFORM_NAME\Release Static\freetype.lib" .
 cd ..
+dir freetype
 $env:CHERE_INVOKING = 'yes'
 bash -lc "./build-cairo.sh"
 
