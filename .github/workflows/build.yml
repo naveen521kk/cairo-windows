@@ -22,6 +22,8 @@ jobs:
             }
             (Get-Command link).Source
             $env:PATH="$env:PATH;C:\msys64\usr\bin"
+            dir C:\msys64
+            dir C:\msys64\usr\bin
             bash ./build-cairo-windows.sh
       - uses: actions/upload-artifact@v2
         with:
