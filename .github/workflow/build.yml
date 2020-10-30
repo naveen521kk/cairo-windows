@@ -11,6 +11,8 @@ jobs:
       - name: Install Wget
         run: |
           choco install wget
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.0.2
       - name: Execute Script
         shell: bash
         continue-on-error: true
