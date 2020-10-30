@@ -21,9 +21,7 @@ jobs:
                 set-content env:\"$name" $value
               }
             }
-            Get-Command make
-            Get-Command bash
-            & "C:\Program Files\Git\bin\bash.EXE --noprofile" ./build-cairo-windows.sh
+            bash ./build-cairo-windows.sh
       - uses: actions/upload-artifact@v2
         with:
           name: cairo.makefile
