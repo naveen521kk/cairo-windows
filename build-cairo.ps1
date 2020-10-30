@@ -58,33 +58,6 @@ cp "builds\windows\vc2010\..\..\..\objs\$MSVC_PLATFORM_NAME\Release Static\freet
 cd ..
 dir freetype
 $env:CHERE_INVOKING = 'yes'
-
-#debug code here
-$File = 'cairo/src/Makefile.win32'
-
-# Process lines of text from file and assign result to $NewContent variable
-$NewContent = Get-Content -Path $File |
-    ForEach-Object {
-        # Output the existing line to pipeline in any case
-        $_
-
-        # If line matches regex
-        if($_ -match '.*cairo\.dll\: .*')
-        {
-            # Add output additional line
-			'	@echo $(CAIRO_LDFLAGS)'
-			'	@echo $@'
-			'	@echo $(CAIRO_LIBS)'
-			'	@echo $(PIXMAN_LIBS)'
-			'	@echo $(OBJECTS)'
-			'	@echo $(LD) $(CAIRO_LDFLAGS) -DLL -OUT:$@ $(CAIRO_LIBS) $(PIXMAN_LIBS) $(OBJECTS)'
-			'	@$(LD) --help'
-        }
-    }
-
-# Write content of $NewContent varibale back to file
-$NewContent | Out-File -FilePath $File -Encoding Default -Force
-#debug code end
 bash -lc "./build-cairo.sh"
 cd cairo
 make -f Makefile.win32 cairo "CFG=release"
