@@ -4,7 +4,7 @@ on:
   push:
 
 jobs:
-  build:
+  build_x86:
     runs-on: windows-2016
     steps:
       - uses: actions/checkout@v2
@@ -23,15 +23,32 @@ jobs:
             (Get-Command link).Source
             Remove-Item "C:\Program Files\Git\usr\bin\link.exe"
             bash -lc "./build-cairo-windows.sh"
-      - uses: actions/upload-artifact@v2
-        with:
-          name: cairo.makefile
-          path: cairo/src/Makefile.win32
-      - uses: actions/upload-artifact@v2
-        with:
-          name: cairo.makefile.edited
-          path: cairo/build/Makefile.win32.common
+            
       - uses: actions/upload-artifact@v2
         with:
           name: cairo.x86
+          path: output
+  build_x64:
+    runs-on: windows-2016
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Wget
+        run: choco install --no-progress wget
+      - name: Execute Script
+        continue-on-error: true
+        run: |
+            $installationPath = vswhere.exe -prerelease -latest -property installationPath
+            if ($installationPath -and (test-path "$installationPath\Common7\Tools\vsdevcmd.bat")) {
+              & "${env:COMSPEC}" /s /c "`"$installationPath\Common7\Tools\vsdevcmd.bat`" -no_logo -host_arch=amd64 -arch=amd64 && set" | foreach-object {
+                $name, $value = $_ -split '=', 2
+                set-content env:\"$name" $value
+              }
+            }
+            (Get-Command link).Source
+            Remove-Item "C:\Program Files\Git\usr\bin\link.exe"
+            bash -lc "./build-cairo-windows.sh x64"
+            
+      - uses: actions/upload-artifact@v2
+        with:
+          name: cairo.x64
           path: output
