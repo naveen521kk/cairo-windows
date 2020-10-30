@@ -11,13 +11,17 @@ jobs:
       - name: Install Wget
         run: |
           choco install wget
-      - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v1.0.2
       - name: Execute Script
-        shell: bash
         continue-on-error: true
         run: |
-          ./build-cairo-windows.sh
+            $installationPath = vswhere.exe -prerelease -latest -property installationPath
+            if ($installationPath -and (test-path "$installationPath\Common7\Tools\vsdevcmd.bat")) {
+              & "${env:COMSPEC}" /s /c "`"$installationPath\Common7\Tools\vsdevcmd.bat`" -no_logo && set" | foreach-object {
+                $name, $value = $_ -split '=', 2
+                set-content env:\"$name" $value
+              }
+            }
+            bash "./build-cairo-windows.sh"
       - uses: actions/upload-artifact@v2
         with:
           name: cairo.makefile
