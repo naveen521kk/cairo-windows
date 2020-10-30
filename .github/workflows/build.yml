@@ -21,6 +21,7 @@ jobs:
                 set-content env:\"$name" $value
               }
             }
+            Get-Command link
             bash ./build-cairo-windows.sh
       - uses: actions/upload-artifact@v2
         with:
