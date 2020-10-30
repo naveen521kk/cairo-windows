@@ -21,11 +21,7 @@ jobs:
               }
             }
             (Get-Command link).Source
-            $env:PATH="C:\msys64\usr\bin;$env:PATH"
-            $env:MSYS2_PATH_TYPE="inherit"
-            $env:CHERE_INVOKING = 'yes'  # Preserve the current working directory
-            $env:MSYSTEM = 'MINGW64'
-            C:\msys64\usr\bin\bash -lc "./build-cairo-windows.sh"
+            bash -lc "./build-cairo-windows.sh"
       - uses: actions/upload-artifact@v2
         with:
           name: cairo.makefile
