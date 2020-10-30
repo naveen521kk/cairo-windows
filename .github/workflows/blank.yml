@@ -23,4 +23,9 @@ jobs:
         with:
           name: cairo.makefile.edited
           path: cairo/build/Makefile.win32.common
+      - uses: actions/upload-artifact@v2
+        with:
+          name: cairo.x86
+          path: output
   
+
