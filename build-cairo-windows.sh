@@ -22,9 +22,8 @@ fi
 
 # Make sure the MSVC linker appears first in the path
 export PATH="$PATH:/c/msys64/usr/bin"
-MSVC_LINK_PATH=`whereis link | sed "s| /usr/bin/link.exe||" | sed "s|.*\(/c.*\)link.exe.*|\1|"`
-echo $MSVC_LINK_PATH
-whereis link
+/c/msys64/usr/bin/whereis link
+MSVC_LINK_PATH=`/c/msys64/usr/bin/whereis link | sed "s| /usr/bin/link.exe||" | sed "s|.*\(/c.*\)link.exe.*|\1|"`
 export PATH="$MSVC_LINK_PATH:$PATH"
 whereis link
 # Download packages if not already
