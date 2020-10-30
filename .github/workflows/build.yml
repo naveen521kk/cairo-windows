@@ -21,6 +21,7 @@ jobs:
               }
             }
             (Get-Command link).Source
+            Remove-Item "C:\Program Files\Git\usr\bin\link.exe"
             bash -lc "./build-cairo-windows.sh"
       - uses: actions/upload-artifact@v2
         with:
