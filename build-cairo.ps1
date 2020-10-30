@@ -86,7 +86,9 @@ $NewContent = Get-Content -Path $File |
 $NewContent | Out-File -FilePath $File -Encoding Default -Force
 #debug code end
 bash -lc "./build-cairo.sh"
+cd cairo
 make -f Makefile.win32 cairo "CFG=release"
+cd ../
 # Package headers with DLL
 $OUTPUT_FOLDER = "output"
 mkdir -p $OUTPUT_FOLDER/include
