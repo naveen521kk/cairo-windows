@@ -8,9 +8,6 @@ jobs:
     runs-on: windows-2016
     steps:
       - uses: actions/checkout@v2
-      - name: Install Wget
-        run: |
-          choco install wget
       - name: Execute Script
         continue-on-error: true
         run: |
@@ -23,9 +20,9 @@ jobs:
             }
             (Get-Command link).Source
             $env:CHERE_INVOKING = 'yes'
-            & "C:\msys64\usr\bash" unset TEMP
-            & "C:\msys64\usr\bash" unset TMP
-            & "C:\msys64\usr\bash" ./build-cairo-windows.sh
+            & "C:\msys64\usr\bin\bash" unset TEMP
+            & "C:\msys64\usr\bin\bash" unset TMP
+            & "C:\msys64\usr\bin\bash" ./build-cairo-windows.sh
       - uses: actions/upload-artifact@v2
         with:
           name: cairo.makefile
