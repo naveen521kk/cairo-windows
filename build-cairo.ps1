@@ -78,8 +78,8 @@ $NewContent = Get-Content -Path $File |
 			'	@echo $(PIXMAN_LIBS)'
 			'	@echo $(OBJECTS)'
 			'	@echo $(LD) $(CAIRO_LDFLAGS) -DLL -OUT:$@ $(CAIRO_LIBS) $(PIXMAN_LIBS) $(OBJECTS)'
-			'	@$(LD) /DLL $(CAIRO_LDFLAGS) /OUT:$@ $(CAIRO_LIBS) $(PIXMAN_LIBS) $(OBJECTS)'
-			'	@$(LD) -DLL $(CAIRO_LDFLAGS) -OUT:$@ $(CAIRO_LIBS) $(PIXMAN_LIBS) $(OBJECTS)'
+			'	@$(LD) --help'
+			'	@$(LD) -DLL -OUT:$@ $(CAIRO_LIBS) $(PIXMAN_LIBS) $(OBJECTS)'
         }
     }
 
