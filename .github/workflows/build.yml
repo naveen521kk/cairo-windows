@@ -19,10 +19,8 @@ jobs:
               }
             }
             (Get-Command link).Source
-            $env:CHERE_INVOKING = 'yes'
-            & "C:\msys64\usr\bin\bash" unset TEMP
-            & "C:\msys64\usr\bin\bash" unset TMP
-            & "C:\msys64\usr\bin\bash" ./build-cairo-windows.sh
+            $env:PATH="$env:PATH;C:\msys64\usr\bin"
+            bash ./build-cairo-windows.sh
       - uses: actions/upload-artifact@v2
         with:
           name: cairo.makefile
