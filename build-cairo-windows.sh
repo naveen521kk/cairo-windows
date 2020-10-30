@@ -21,7 +21,7 @@ else
 fi
 
 # Make sure the MSVC linker appears first in the path
-MSVC_LINK_PATH=`whereis link | sed "s| /usr/bin/link.exe||" | sed "s|.*\(/c.*\)link.exe.*|\1|"`
+MSVC_LINK_PATH=`which link | sed "s| /usr/bin/link.exe||" | sed "s|.*\(/c.*\)link.exe.*|\1|"`
 export PATH="$MSVC_LINK_PATH:$PATH"
 
 # Download packages if not already
