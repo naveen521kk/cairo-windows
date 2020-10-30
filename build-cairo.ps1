@@ -79,7 +79,6 @@ $NewContent = Get-Content -Path $File |
 			'	@echo $(OBJECTS)'
 			'	@echo $(LD) $(CAIRO_LDFLAGS) -DLL -OUT:$@ $(CAIRO_LIBS) $(PIXMAN_LIBS) $(OBJECTS)'
 			'	@$(LD) --help'
-			'	@$(LD) -DLL -OUT:$@ $(CAIRO_LIBS) $(PIXMAN_LIBS) $(OBJECTS)'
         }
     }
 
@@ -87,7 +86,7 @@ $NewContent = Get-Content -Path $File |
 $NewContent | Out-File -FilePath $File -Encoding Default -Force
 #debug code end
 bash -lc "./build-cairo.sh"
-
+make -f Makefile.win32 cairo "CFG=release"
 # Package headers with DLL
 $OUTPUT_FOLDER = "output"
 mkdir -p $OUTPUT_FOLDER/include
