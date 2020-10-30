@@ -18,11 +18,11 @@ if [ ${1:-x86} = x64 ]; then
 else
     MSVC_PLATFORM_NAME=Win32
     OUTPUT_PLATFORM_NAME=x86
+    export PATH="/C/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/VC/Tools/MSVC/14.16.27023/bin/HostX86/x86/link.exe:$PATH"
 fi
 
 # Make sure the MSVC linker appears first in the path
-MSVC_LINK_PATH=`where link | sed "s| /usr/bin/link.exe||" | sed "s|.*\(/c.*\)link.exe.*|\1|"`
-export PATH="$MSVC_LINK_PATH:$PATH"
+
 
 # Download packages if not already
 wget -nc https://www.cairographics.org/snapshots/$CAIRO_VERSION.tar.xz
