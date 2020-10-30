@@ -8,6 +8,8 @@ jobs:
     runs-on: windows-2016
     steps:
       - uses: actions/checkout@v2
+      - name: Install Wget
+        run: choco install --no-progress wget
       - name: Execute Script
         continue-on-error: true
         run: |
