@@ -7,5 +7,4 @@ mv Makefile.win32.common.fixed build/Makefile.win32.common
 sed "s/CAIRO_HAS_FT_FONT=./CAIRO_HAS_FT_FONT=$USE_FREETYPE/" build/Makefile.win32.features > Makefile.win32.features.fixed
 mv Makefile.win32.features.fixed build/Makefile.win32.features
 # pass -B for switching between x86/x64
-make -f Makefile.win32 cairo "CFG=release"
 cd ..
