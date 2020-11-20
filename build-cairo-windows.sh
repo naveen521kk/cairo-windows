@@ -65,7 +65,7 @@ if [ ! -d "projects\vstudio\Backup" ]; then
     # Upgrade solution if not already
     devenv.com "projects\vstudio\vstudio.sln" -upgrade
 fi
-if [$OUTPUT_PLATFORM_NAME=='x64']; then
+if [ $OUTPUT_PLATFORM_NAME = x64 ]; then
     #patch libpng
     cp -f ../libpng-patch/vstudio.sln projects/vstudio/vstudio.sln
 fi
