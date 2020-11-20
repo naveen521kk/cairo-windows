@@ -67,7 +67,7 @@ if [ ! -d "projects\vstudio\Backup" ]; then
 fi
 if [$OUTPUT_PLATFORM_NAME=='x64']; then
     #patch libpng
-    cp -f libpng/vstudio.sln projects/vstudio/vstudio.sln
+    cp -f ../libpng-patch/vstudio.sln projects/vstudio/vstudio.sln
 fi
 
 devenv.com "projects\vstudio\vstudio.sln" -build "Release Library|$MSVC_PLATFORM_NAME" -project libpng
